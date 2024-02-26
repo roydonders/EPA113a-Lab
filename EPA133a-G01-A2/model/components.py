@@ -28,6 +28,7 @@ class Infra(Agent):
         self.vehicle_count = 0
 
     def step(self):
+        #Bij deze, groetjes
         pass
 
     def __str__(self):
