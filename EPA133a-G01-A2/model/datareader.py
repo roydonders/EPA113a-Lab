@@ -50,6 +50,7 @@ class DataReader:
 
         # Assuming the CSV file is named '_roads3.csv'
         csv_file_path = os.path.join(data_folder, '_roads3.csv')
+        return csv_file_path
 
     def get_road(self):
         #Previous code for selecting bridges
