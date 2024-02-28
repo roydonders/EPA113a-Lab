@@ -1,6 +1,7 @@
 from model import BangladeshModel
 
 """
+    This file runs the model without visualisation # comment 1 van Fred
     Run simulation
     Print output at terminal
 """
