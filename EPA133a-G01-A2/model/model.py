@@ -57,13 +57,20 @@ class BangladeshModel(Model):
 
     def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0):
 
+        # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
+        # state of the model needs to be running
         self.running = True
+        # contains default dictionary containing all the connected paths ids
         self.path_ids_dict = defaultdict(lambda: pd.Series())
+        # these 3 attributes are instantiated empty
         self.space = None
         self.sources = []
         self.sinks = []
 
+        # test/executable code needs to be added here below and above generate model
+
+        # generates the model according to csv file component information
         self.generate_model()
 
     def generate_model(self):
@@ -73,9 +80,12 @@ class BangladeshModel(Model):
         Warning: the labels are the same as the csv column labels
         """
 
+        # the csv gets loaded into a df with pandas
+        # Change this path to change to data the model uses
         df = pd.read_csv('../data/demo-1.csv')
 
         # a list of names of roads to be generated
+        # all roads entered here get selected from the csv file, the rest gets excluded
         roads = ['N1']
 
         # roads = [
@@ -83,7 +93,10 @@ class BangladeshModel(Model):
         #     'N5', 'N6', 'N7', 'N8'
         # ]
 
+        # first an empty df is created for containing all the objects identified in the csv
         df_objects_all = []
+        # for each road that is selected up top.
+        # execute certain steps as described below.
         for road in roads:
 
             # be careful with the sorting
@@ -91,6 +104,8 @@ class BangladeshModel(Model):
             # Select all the objects on a particular road
             df_objects_on_road = df[df['road'] == road].sort_values(by=['id'])
 
+            # In case the road objects is NOT empty,
+            # execute steps below
             if not df_objects_on_road.empty:
                 df_objects_all.append(df_objects_on_road)
 
@@ -105,7 +120,9 @@ class BangladeshModel(Model):
                 self.path_ids_dict[path_ids[0], path_ids.iloc[-1]] = path_ids
 
         # put back to df with selected roads so that min and max and be easily calculated
+        # this command combines all seperate object df's into one large df
         df = pd.concat(df_objects_all)
+        # this commands sets the bounds of the model
         y_min, y_max, x_min, x_max = set_lat_lon_bound(
             df['lat'].min(),
             df['lat'].max(),
@@ -116,30 +133,42 @@ class BangladeshModel(Model):
 
         # ContinuousSpace from the Mesa package;
         # not to be confused with the SimpleContinuousModule visualization
+        # this command sets the bounds of the continous space mesa generates
         self.space = ContinuousSpace(x_max, y_max, True, x_min, y_min)
 
+        # for each object df in the csv
         for df in df_objects_all:
+            # the _ is a place holder indicating that the value doesn't matter
+            # iterrows() is a pandas function which iterates over the rows
             for _, row in df.iterrows():    # index, row in ...
 
+
+                # This part of the code can/must be editted to give agent different attributes
                 # create agents according to model_type
                 model_type = row['model_type']
                 agent = None
 
+                # code for sources
                 if model_type == 'source':
                     agent = Source(row['id'], self, row['length'], row['name'], row['road'])
                     self.sources.append(agent.unique_id)
+                # code for sinks
                 elif model_type == 'sink':
                     agent = Sink(row['id'], self, row['length'], row['name'], row['road'])
                     self.sinks.append(agent.unique_id)
+                # code for when its both a source and a sink
                 elif model_type == 'sourcesink':
                     agent = SourceSink(row['id'], self, row['length'], row['name'], row['road'])
                     self.sources.append(agent.unique_id)
                     self.sinks.append(agent.unique_id)
+                # code for bridges
                 elif model_type == 'bridge':
                     agent = Bridge(row['id'], self, row['length'], row['name'], row['road'])
+                # code for peaces of road between infrastructe
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], row['name'], row['road'])
 
+                # this is a truck agent object
                 if agent:
                     self.schedule.add(agent)
                     y = row['lat']
@@ -162,6 +191,7 @@ class BangladeshModel(Model):
         """
         Advance the simulation by one step.
         """
+        # advances the model for each agent/object that is added to the scheduler
         self.schedule.step()
 
 
