@@ -1,5 +1,6 @@
 # ---------------------------------------------------------------
 import os
+import pandas as pd
 
 
 class DataReader:
@@ -67,3 +68,13 @@ class DataReader:
         # road_specified_df is outputted dataframe
         #road_specified_df = df.loc[df['Road'] == road_specified]
         pass
+
+    def get_roads(self):
+        csv_import = self.get_path()
+
+        df_import = pd.read_csv(csv_import)
+
+        df_import = df_import.drop(columns=['name', 'lrp'])
+
+
+        return df_import
