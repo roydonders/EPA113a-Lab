@@ -65,6 +65,7 @@ class BangladeshModel(Model):
         self.sinks = []
 
         self.generate_model()
+        print(f'test print statement')
 
     def generate_model(self):
         """
