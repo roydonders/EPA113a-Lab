@@ -1,4 +1,7 @@
 # ---------------------------------------------------------------
+import os
+
+
 class DataReader:
     """
     The short expl
@@ -31,8 +34,22 @@ class DataReader:
 
         self.path = self.get_path()
 
+    """
+    bla bla uitleg get_path
+    haalt de roads 3 csv op uit data
+    """
     def get_path(self):
-        pass
+        # Get the directory of the current script
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Get the parent directory
+        parent_dir = os.path.dirname(current_dir)
+
+        # Path to the data folder
+        data_folder = os.path.join(parent_dir, 'data')
+
+        # Assuming the CSV file is named '_roads3.csv'
+        csv_file_path = os.path.join(data_folder, '_roads3.csv')
 
     def get_road(self):
         #Previous code for selecting bridges
