@@ -20,7 +20,7 @@ class Infra(Agent):
     """
 
     def __init__(self, unique_id, model, length=0,
-                 name='Unknown', road_name='Unknown'):
+                 name='Unknown_Fred', road_name='Unknown'):
         super().__init__(unique_id, model)
         self.length = length
         self.name = name
