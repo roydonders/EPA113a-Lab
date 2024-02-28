@@ -64,13 +64,6 @@ class DataReader:
         csv_file_path = os.path.join(data_folder, '_roads3.csv')
         return csv_file_path
 
-    def get_road(self):
-        #Previous code for selecting bridges
-        # df is inputted dataframe
-        # road_specified_df is outputted dataframe
-        #road_specified_df = df.loc[df['Road'] == road_specified]
-        pass
-
     def get_roads(self):
         csv_import = self.get_path()
         df_import = pd.read_csv(csv_import)
