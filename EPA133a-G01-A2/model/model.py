@@ -74,7 +74,7 @@ class BangladeshModel(Model):
 
         # generates the model according to csv file component information
         self.generate_model()
-        print(f'test print statement')
+        print(f'test print statement 1')
 
     def generate_model(self):
         """
