@@ -35,6 +35,8 @@ class DataReader:
 
         self.path = self.get_path()
 
+        self.get_roads()
+
     def get_path(self):
         """
         Retrieve the absolute path to a specific CSV file located in a 'data' folder relative to the current script's directory.
@@ -71,10 +73,7 @@ class DataReader:
 
     def get_roads(self):
         csv_import = self.get_path()
-
         df_import = pd.read_csv(csv_import)
-
         df_import = df_import.drop(columns=['name', 'lrp'])
 
-
-        return df_import
+        return print(df_import.head(10))
