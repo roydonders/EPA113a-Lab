@@ -2,6 +2,7 @@ from mesa import Model
 from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
 from components import Source, Sink, SourceSink, Bridge, Link
+from datareader import DataReader
 import pandas as pd
 from collections import defaultdict
 
@@ -64,6 +65,7 @@ class BangladeshModel(Model):
         self.sources = []
         self.sinks = []
 
+        self.read_data()
         self.generate_model()
 
     def generate_model(self):
@@ -164,5 +166,8 @@ class BangladeshModel(Model):
         """
         self.schedule.step()
 
+    def read_data(self):
+        datareader = DataReader()
+        datareader.get_roads()
 
 # EOF -----------------------------------------------------------
