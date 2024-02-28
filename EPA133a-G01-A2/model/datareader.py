@@ -33,3 +33,10 @@ class DataReader:
 
     def get_path(self):
         pass
+
+    def get_road(self):
+        #Previous code for selecting bridges
+        # df is inputted dataframe
+        # road_specified_df is outputted dataframe
+        #road_specified_df = df.loc[df['Road'] == road_specified]
+        pass
