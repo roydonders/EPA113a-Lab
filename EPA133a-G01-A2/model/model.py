@@ -191,7 +191,7 @@ class BangladeshModel(Model):
 
     def step(self):
         """
-        Advance the simulation by one step.
+        Advance the simulation by one step
         """
         # advances the model for each agent/object that is added to the scheduler
         self.schedule.step()
