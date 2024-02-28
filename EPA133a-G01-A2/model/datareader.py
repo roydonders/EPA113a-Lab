@@ -34,11 +34,20 @@ class DataReader:
 
         self.path = self.get_path()
 
-    """
-    bla bla uitleg get_path
-    haalt de roads 3 csv op uit data
-    """
     def get_path(self):
+        """
+        Retrieve the absolute path to a specific CSV file located in a 'data' folder relative to the current script's directory.
+
+        Returns:
+            str: The absolute path to the CSV file.
+
+        This method obtains the directory of the current script and then navigates to its parent directory.
+        It constructs the path to the 'data' folder within the parent directory and appends the name of the CSV file to it.
+
+        WARNING: Hardcoding
+        The method assumes the CSV file is named '_roads3.csv'. If the file name or folder structure changes,
+        this method may need to be updated accordingly by differing input variables for the .csv file.
+        """
         # Get the directory of the current script
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
