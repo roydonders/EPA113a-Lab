@@ -36,21 +36,35 @@ class ModelsCreator:
 
     # where to place seeds? input or random generator of seeds
     # meegeven dat hij ook een aantal replications kan doen?
-    def __init__(self, runtime, replications, seeds, scenario):
+    def __init__(self, runtime, seeds, scenario, n = 10):
         self.runtime = runtime
         # Need to check if N = length seeds!!!
-        self.N = replications
+        self.N = n
         self.seeds = seeds
         self.scenario = scenario
 
+    def run_replications_assignment2(self):
+        reps = self.create_replications()
+        finalmodels = self.run_replications(reps)
+        return finalmodels
 
     def create_replications(self):
+        replications = []
         n = self.N
         for i in range(n):
             seed = self.seeds[i]
 
-        self.create_single_model(seed)
+            modeli = self.create_single_model(seed)
 
+            replications.append(modeli)
+        return replications
+
+    def run_replications(self, replications):
+        finalmodels = []
+        for rep in replications:
+            rep = self.run_single_model(rep)
+            finalmodels.append(rep)
+        return finalmodels
 
     def create_single_model(self, seed):
         sim_model = BangladeshModel(seed=seed)
