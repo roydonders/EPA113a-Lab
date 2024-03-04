@@ -107,6 +107,7 @@ class Source(Infra):
     __________
     generation_frequency: int
         the frequency (the number of ticks) by which a truck is generated
+        ! for this assignment 2, trucks need to be generated every five minutes
 
     vehicle_generated_flag: bool
         True when a Truck is generated in this tick; False otherwise
@@ -157,6 +158,8 @@ class Vehicle(Agent):
     __________
     speed: float
         speed in meter per minute (m/min)
+        without waiting or delays trucks have an average speed of 48 km/h = 800m/min
+        ! use this as speed for entire road
 
     step_time: int
         the number of minutes (or seconds) a tick represents
