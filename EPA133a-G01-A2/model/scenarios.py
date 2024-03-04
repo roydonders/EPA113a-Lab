@@ -2,10 +2,10 @@ from model import BangladeshModel
 
 class Scenario:
     def __init__(self, a, b, c, d):
-        self.category_a_percentage = a
-        self.category_b_percentage = b
-        self.category_c_percentage = c
-        self.category_d_percentage = d
+        self.category_a_probability = a
+        self.category_b_probability = b
+        self.category_c_probability = c
+        self.category_d_probability = d
         # hier replications toevoegen?
 
 class ScenarioCreator:
@@ -14,21 +14,21 @@ class ScenarioCreator:
     def __init__(self, n, create_scenarios_lab_2 = True):
         self.num_scenarios = n
         if (create_scenarios_lab_2):
-            self.scenarios = self.create_scenarios_lab_2()
+            self.scenarios = self.create_lab2_scenarios()
 
     # Warning: hardcoding - should we perhaps read this in from excel file?
     def create_lab2_scenarios(self):
         s0 = Scenario(0,0,0,0)
-        # s1 = Scenario()
-        # s2 = Scenario()
-        # s3 = Scenario()
-        # s4 = Scenario()
-        # s5 = Scenario()
-        # s6 = Scenario()
-        # s7 = Scenario()
-        # s8 = Scenario()
+        # s1 = Scenario(0,0,0,0.05)
+        # s2 = Scenario(0,0,0,0.1)
+        # s3 = Scenario(0,0,0.05,0.1)
+        # s4 = Scenario(0,0,0.1,0.2)
+        # s5 = Scenario(0,0.05,0.1,0.2)
+        # s6 = Scenario(0,0.1,0.2,0.4)
+        # s7 = Scenario(0.05,0.1,0.2,0.4)
+        # s8 = Scenario(0.1,0.2,0.4,0.8)
         scenario_list = [s0]
-        # scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10]
+        # scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
         return scenario_list
 
 
