@@ -193,8 +193,8 @@ class Vehicle(Agent):
 
     """
 
-    # 50 km/h translated into meter per min
-    speed = 50 * 1000 / 60
+    # 50 km/h translated into meter per min - changed into 48 km/h (change into subclass?
+    speed = 48 * 1000 / 60
     # One tick represents 1 minute
     step_time = 1
 
