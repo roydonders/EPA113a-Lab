@@ -29,13 +29,11 @@ class DataReader:
 
     """
 
-    step_time = 1
 
     def __init__(self):
 
         self.path = self.get_path()
 
-        self.get_roads()
 
     def get_path(self):
         """
@@ -65,8 +63,8 @@ class DataReader:
         return csv_file_path
 
     def get_roads(self):
-        csv_import = self.get_path()
+        # Read in csv according to predefined path
+        csv_import = self.path
+        # Read in dataframe
         df_import = pd.read_csv(csv_import)
-        df_import = df_import.drop(columns=['name', 'lrp'])
-
-        return print(df_import.head(10))
+        return df_import

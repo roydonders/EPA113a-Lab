@@ -75,6 +75,11 @@ class BangladeshModel(Model):
         # generates the model according to csv file component information
         self.generate_model()
 
+    def read_in_data(self):
+        dr = DataReader()
+        df = dr.get_roads()
+        return df
+
     def generate_model(self):
         """
         generate the simulation model according to the csv file component information
@@ -84,7 +89,7 @@ class BangladeshModel(Model):
 
         # the csv gets loaded into a df with pandas
         # Change this path to change to data the model uses
-        df = pd.read_csv('../data/demo-1.csv')
+        df = self.read_in_data()
 
         # a list of names of roads to be generated
         # all roads entered here get selected from the csv file, the rest gets excluded
