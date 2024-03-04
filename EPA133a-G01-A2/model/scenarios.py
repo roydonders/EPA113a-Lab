@@ -6,6 +6,7 @@ class Scenario:
         self.category_b_percentage = b
         self.category_c_percentage = c
         self.category_d_percentage = d
+        # hier replications toevoegen?
 
 class ScenarioCreator:
     scenarios = []
@@ -34,6 +35,7 @@ class ScenarioCreator:
 class ModelsCreator:
 
     # where to place seeds? input or random generator of seeds
+    # meegeven dat hij ook een aantal replications kan doen?
     def __init__(self, num_models, runtime, scenario_list = []):
         self.runtime = runtime
         self.N = num_models

@@ -194,6 +194,7 @@ class BangladeshModel(Model):
         Advance the simulation by one step
         """
         # advances the model for each agent/object that is added to the scheduler
+        #self.datacollector.collect(self)
         self.schedule.step()
 
     def read_data(self):
