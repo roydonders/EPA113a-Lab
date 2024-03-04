@@ -48,7 +48,7 @@ class DataReader:
         It constructs the path to the 'data' folder within the parent directory and appends the name of the CSV file to it.
 
         WARNING: Hardcoding
-        The method assumes the CSV file is named '_roads3.csv'. If the file name or folder structure changes,
+        The method assumes the CSV file is named 'roads_final_as2.csv'. If the file name or folder structure changes,
         this method may need to be updated accordingly by differing input variables for the .csv file.
         """
         # Get the directory of the current script
@@ -60,8 +60,8 @@ class DataReader:
         # Path to the data folder
         data_folder = os.path.join(parent_dir, 'data')
 
-        # Assuming the CSV file is named '_roads3.csv'
-        csv_file_path = os.path.join(data_folder, '_roads3.csv')
+        # Assuming the CSV file is named 'roads_final_as2.csv'
+        csv_file_path = os.path.join(data_folder, 'roads_final_as2.csv')
         return csv_file_path
 
     def get_roads(self):
