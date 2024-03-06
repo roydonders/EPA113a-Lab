@@ -41,28 +41,28 @@ def run_assignment2():
     # output = run_scenario_assignment2(scenario_0)
 
     # Print output DataFrame for all scenarios
-    print_output_dataframe(outputs)
+    # print_output_dataframe(outputs)
 
     # Print output in run_terminal
-    print("outputs", outputs)
+    # print("outputs", outputs)
     # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 
 
-def print_output_dataframe(outputs):
-    # Create DataFrame
-    output_df = pd.DataFrame({'replication i': outputs})
-    scenario_name = f'scenario_{Scenario}'
-    print(f"Output DataFrame for {Scenario}:")
-    print(output_df)
-
-    # Export DataFrame to Excel
-    # export_to_excel(output_df)
-
-
-def export_to_excel(df):
-    # Export DataFrame to Excel file
-    df.to_excel('data/output_df.xlsx', index=False)
-    print("Output DataFrame exported to 'output.xlsx'")
+# def print_output_dataframe(outputs):
+#     # Create DataFrame
+#     output_df = pd.DataFrame({'replication i': outputs})
+#     scenario_name = f'scenario_{Scenario}'
+#     print(f"Output DataFrame for {Scenario}:")
+#     print(output_df)
+#
+#     # Export DataFrame to Excel
+#     # export_to_excel(output_df)
+#
+#
+# def export_to_excel(df):
+#     # Export DataFrame to Excel file
+#     df.to_excel('data/output_df.xlsx', index=False)
+#     print("Output DataFrame exported to 'output.xlsx'")
 
 
 
@@ -81,6 +81,9 @@ def run_scenarios_assignment2(scenarios):
         print(f'scenario {s} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
+        scenario_df = pd.DataFrame({'replication i': outputs})
+        print(f"Output DataFrame for {s}:")
+        print(scenario_df)
     return outputs
 
 
