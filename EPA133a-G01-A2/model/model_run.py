@@ -37,16 +37,33 @@ run_length = 10
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
 
 
-def run_assignment2(run_length, seeds):
-    scenario_factory = ScenarioCreator()
-    scenario_0 = scenario_factory.scenarios[0]
-
+def run_assignment2():
+    scenarios = create_scenarios_assignment2()
+    scenario_0 = scenarios[0]
+    output = run_scenario_assignment2(scenario_0)
+    print("output", output)
     # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
-    replication_factory = ReplicationCreator(run_length, seeds, scenario_0)
+
+
+def create_scenarios_assignment2():
+    scenario_factory = ScenarioCreator()
+    return scenario_factory.scenarios
+
+def run_scenario_assignment2(scenario):
+    models = run_replications_assignment2(scenario)
+    output = get_average_driving_times(models)
+    return output
+
+def run_replications_assignment2(scenario):
+    replication_factory = ReplicationCreator(run_length, seeds, scenario)
     models = replication_factory.run_replications_assignment2()
     return models
 
-finalmodels = run_assignment2(run_length, seeds)
+def get_average_driving_times(models):
+    return [0,0,0,0,0,0,0,0,0,0]
+
+
+run_assignment2()
 
 # Hieronder oude model
 # This is the name of the model that is beinig created
