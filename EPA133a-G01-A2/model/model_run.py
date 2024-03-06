@@ -37,17 +37,26 @@ run_length = 10
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
 
 
+
 def run_assignment2():
     scenarios = create_scenarios_assignment2()
+    outputs = run_scenarios_assignment2(scenarios)
     scenario_0 = scenarios[0]
     output = run_scenario_assignment2(scenario_0)
-    print("output", output)
+    print("output", outputs)
     # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 
 
 def create_scenarios_assignment2():
     scenario_factory = ScenarioCreator()
     return scenario_factory.scenarios
+
+def run_scenarios_assignment2(scenarios):
+    outputs = []
+    for s in scenarios:
+        o = run_scenario_assignment2(s)
+        outputs.append(o)
+    return outputs
 
 def run_scenario_assignment2(scenario):
     models = run_replications_assignment2(scenario)
