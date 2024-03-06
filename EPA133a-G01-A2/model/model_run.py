@@ -1,9 +1,9 @@
 from model import BangladeshModel
-from scenarios import ScenarioCreator, ReplicationCreator
 # dont forget to import what you need here
 from components import Infra
 from components import Bridge
 from components import Vehicle
+from scenarios import ScenarioCreator, ReplicationCreator
 
 """
     Run simulation
@@ -17,8 +17,9 @@ from components import Vehicle
 # seed = 1234567
 
 # run time 1000 ticks oude model
+# run_length = 1000
 # set to 10 for a fast run
-run_length = 10
+run_length = 1000
 
 # Seeds for the different replications
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
