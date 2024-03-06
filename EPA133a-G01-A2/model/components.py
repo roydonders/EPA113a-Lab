@@ -1,5 +1,6 @@
 from mesa import Agent
 from enum import Enum
+from delaygenerator import DelayTimeGenerator, UniformDelayTimeGenerator1, UniformDelayTimeGenerator2, UniformDelayTimeGenerator3, TriangularTimeGenerator
 # comment 1 Fred
 
 # ---------------------------------------------------------------
@@ -58,18 +59,29 @@ class Bridge(Infra):
         self.condition = condition
 
         # TODO
-        self.delay_time = self.generate_delay_time()
+        self.delay_time = 0
+        self.generate_delay_generator()
         # print(self.delay_time)
 
-    # TODO
     def get_delay_time(self):
-        return self.delay_time
+        dg = self.delay_gen
+        delay = dg.get_delay()
+        print("Delay time", delay)
+        self.delay_time = delay
+        return delay
 
-    def generate_delay_time(self):
-        over200 = self.length > 200
-        b50and200 = 50 < self.length < 200
-        b10and50 = 10 < self.length < 50
-        under10 = self.length < 10
+    def generate_delay_generator(self):
+        length = self.length
+        if self.length > 200:
+            self.delay_gen = TriangularTimeGenerator()
+        elif 50 < self.length <= 200:
+            self.delay_gen = UniformDelayTimeGenerator1()
+        elif 10 < self.length <= 50:
+            self.delay_gen = UniformDelayTimeGenerator2()
+        elif self.length <= 10:
+            self.delay_gen = UniformDelayTimeGenerator3()
+        else:
+            raise ValueError("Invalid length provided")
 
 
 
