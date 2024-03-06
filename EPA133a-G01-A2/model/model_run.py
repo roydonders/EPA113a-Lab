@@ -36,11 +36,11 @@ def run_assignment2():
     outputs = run_scenarios_assignment2(scenarios)
     print(f'finished running all the scenarios')
 
-    # # base scenario_0 variables
-    scenario_0 = scenarios[0]
-    output = run_scenario_assignment2(scenario_0)
-    # print("output", outputs)
-    # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
+    # # # base scenario_0 variables
+    # scenario_0 = scenarios[0]
+    # output = run_scenario_assignment2(scenario_0)
+    # # print("output", outputs)
+    # # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 
 
 def create_scenarios_assignment2():
