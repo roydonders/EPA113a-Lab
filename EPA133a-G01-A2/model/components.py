@@ -28,7 +28,7 @@ class Infra(Agent):
         self.vehicle_count = 0
 
     def step(self):
-        #Bij deze, groetjes
+        # Bij deze, groetjes
         pass
 
     def __str__(self):
@@ -227,12 +227,16 @@ class Vehicle(Agent):
         self.waiting_time = 0
         self.waited_at = None
         self.removed_at_step = None
+        # total driving time ==> removed_at_step - generated_at_step == aantal ticks in systeem
+        # self.driving_time = self.removed_at_step - self.generated_at_step
+        self.driving_time = 0
 
     def __str__(self):
-        return "Vehicle" + str(self.unique_id) + \
-               " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) + \
-               " " + str(self.state) + '(' + str(self.waiting_time) + ') ' + \
-               str(self.location) + '(' + str(self.location.vehicle_count) + ') ' + str(self.location_offset)
+        return ("Vehicle" + str(self.unique_id) +
+                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) +  ' = (' + str(self.driving_time) + ')'
+                " " + str(self.state) + '(' + str(self.waiting_time) + ') ' +
+                str(self.location) + '(' + str(self.location.vehicle_count) + ') ' +
+                str(self.location_offset))
 
     def set_path(self):
         """
@@ -279,12 +283,14 @@ class Vehicle(Agent):
 
         self.location_index += 1
         next_id = self.path_ids[self.location_index]
-        next_infra = self.model.schedule._agents[next_id]  # Access to protected member _agents
+        next_infra = self.model.schedule._agents[next_id]  # Access to protected member_agents
 
         if isinstance(next_infra, Sink):
             # arrive at the sink
             self.arrive_at_next(next_infra, 0)
-            self.removed_at_step = self.model.schedule.step
+            self.removed_at_step = self.model.schedule.steps
+            # calculate the driving time
+            self.driving_time = self.removed_at_step - self.generated_at_step
             self.location.remove(self)
             return
         elif isinstance(next_infra, Bridge):
@@ -313,5 +319,3 @@ class Vehicle(Agent):
         self.location.vehicle_count += 1
 
 # EOF -----------------------------------------------------------
-
-
