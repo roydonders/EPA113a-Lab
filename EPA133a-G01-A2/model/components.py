@@ -4,6 +4,7 @@ from delaygenerator import DelayTimeGenerator, UniformDelayTimeGenerator1, Unifo
 # comment 1 Fred
 
 # ---------------------------------------------------------------
+
 class Infra(Agent):
     """
     Base class for all infrastructure components
@@ -108,7 +109,10 @@ class Sink(Infra):
     def remove(self, vehicle):
         self.model.schedule.remove(vehicle)
         self.vehicle_removed_toggle = not self.vehicle_removed_toggle
+        # default output when a vehicle gets removed
+        # Sink1001296 REMOVE VehicleTruck5207 + 35 - 616 = (581) State.DRIVE(0) Sink1001296(8) 0
         print(str(self) + ' REMOVE ' + str(vehicle))
+
 
 
 # ---------------------------------------------------------------
@@ -245,7 +249,7 @@ class Vehicle(Agent):
 
     def __str__(self):
         return ("Vehicle" + str(self.unique_id) +
-                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) +  ' = (' + str(self.driving_time) + ')'
+                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) + ' = (' + str(self.driving_time) + ')'
                 " " + str(self.state) + '(' + str(self.waiting_time) + ') ' +
                 str(self.location) + '(' + str(self.location.vehicle_count) + ') ' +
                 str(self.location_offset))
@@ -303,11 +307,13 @@ class Vehicle(Agent):
             self.removed_at_step = self.model.schedule.steps
             # calculate the driving time
             self.driving_time = self.removed_at_step - self.generated_at_step
+
             self.location.remove(self)
             return
         elif isinstance(next_infra, Bridge):
             self.waiting_time = next_infra.get_delay_time()
-            if self.waiting_time > 0:
+            # kept getting value error, so it now checks of the waiting time is not None
+            if self.waiting_time is not None and self.waiting_time > 0:
                 # arrive at the bridge and wait
                 self.arrive_at_next(next_infra, 0)
                 self.state = Vehicle.State.WAIT

@@ -56,7 +56,9 @@ class BangladeshModel(Model):
 
     step_time = 1
 
-    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0):
+    output_df = pd.DataFrame(columns=['replication i'])
+
+    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario_name=None, replication = None):
 
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
@@ -69,12 +71,15 @@ class BangladeshModel(Model):
         self.sources = []
         self.sinks = []
 
+        # assigns the scenario of the model
+        self.scenario_name = scenario_name
+
         self.read_data()
         # test/executable code needs to be added here below and above generate model
 
         # generates the model according to csv file component information
         self.generate_model()
-        print(f'test print statement 1')
+        print(f'bangladesh model initilized')
 
     def read_in_data(self):
         dr = DataReader()
@@ -206,5 +211,8 @@ class BangladeshModel(Model):
     def read_data(self):
         datareader = DataReader()
         datareader.get_roads()
+
+    def __str__(self):
+        return print(f'Bangladesh model output df: \n {output_df}')
 
 # EOF -----------------------------------------------------------
