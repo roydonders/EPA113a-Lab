@@ -27,11 +27,12 @@ from components import Vehicle
 # run time 5 x 24 hours; 1 tick 1 minute
 # run_length = 5 * 24 * 60
 
-# run time 1000 ticks
+# # example run time
+# # run time 1000 ticks
 run_length = 1000
 
 seed = 1234567
-seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
+# seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
 
 
 # This is the name of the model that is beinig created
@@ -42,31 +43,32 @@ print("SEED " + str(sim_model._seed))
 
 # One run with given steps
 for i in range(run_length):
+    print(f' tick = {i}')
     sim_model.step()
 
-# Place HERE you're executable statements after simulating...
-print(f'Hi everyone this the first test of the main project :D')
-
-# Example
-# def __str__(self):
-#     return "Vehicle" + str(self.unique_id) + \" +"
-# de bovenstaande code staat in de de components file, tijdens het runnen van de simulatie worden deze lines
-# geprint en de unique id's zijn de getallen direct achter VehicleTruck'unique_id' + etc.
-
-klas = Infra(1, sim_model)
-print(klas.name)
-# this prints Unkown_Fred at the end in terminal which is standard for an Infra object
-# which I editted in the components file as example for you to find where I did what
-# because I the attributes of the agents are not being assigned
-print(klas.unique_id)
-print(klas.road_name)
-
-# test van een brug
-# maak eerst een instantie van een brug
-brug = Bridge(klas, sim_model)
-print(brug.get_delay_time)
-
-# # Vehicle kreeg ik niet geprint omdat er een argument 'generated_by' meegegeven moet worden
-# # als ik een getal invul krijg ik deze: AttributeError: 'int' object has no attribute 'pos'
-# # pos als in positie?
-# car = Vehicle(1, sim_model,0)
+# # Place HERE you're executable statements after simulating...
+# print(f'Hi everyone this the first test of the main project :D')
+#
+# # Example
+# # def __str__(self):
+# #     return "Vehicle" + str(self.unique_id) + \" +"
+# # de bovenstaande code staat in de de components file, tijdens het runnen van de simulatie worden deze lines
+# # geprint en de unique id's zijn de getallen direct achter VehicleTruck'unique_id' + etc.
+#
+# klas = Infra(1, sim_model)
+# print(klas.name)
+# # this prints Unkown_Fred at the end in terminal which is standard for an Infra object
+# # which I editted in the components file as example for you to find where I did what
+# # because I the attributes of the agents are not being assigned
+# print(klas.unique_id)
+# print(klas.road_name)
+#
+# # test van een brug
+# # maak eerst een instantie van een brug
+# brug = Bridge(klas, sim_model)
+# print(brug.get_delay_time)
+#
+# # # Vehicle kreeg ik niet geprint omdat er een argument 'generated_by' meegegeven moet worden
+# # # als ik een getal invul krijg ik deze: AttributeError: 'int' object has no attribute 'pos'
+# # # pos als in positie?
+# # car = Vehicle(1, sim_model,0)
