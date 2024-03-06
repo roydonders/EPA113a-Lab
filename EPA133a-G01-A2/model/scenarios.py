@@ -18,16 +18,16 @@ class ScenarioCreator:
     # Warning: hardcoding - should we perhaps read this in from excel file?
     def create_lab2_scenarios(self):
         s0 = Scenario(0,0,0,0)
-        # s1 = Scenario(0,0,0,0.05)
-        # s2 = Scenario(0,0,0,0.1)
-        # s3 = Scenario(0,0,0.05,0.1)
-        # s4 = Scenario(0,0,0.1,0.2)
-        # s5 = Scenario(0,0.05,0.1,0.2)
-        # s6 = Scenario(0,0.1,0.2,0.4)
-        # s7 = Scenario(0.05,0.1,0.2,0.4)
-        # s8 = Scenario(0.1,0.2,0.4,0.8)
-        scenario_list = [s0]
-        # scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
+        s1 = Scenario(0,0,0,0.05)
+        s2 = Scenario(0,0,0,0.1)
+        s3 = Scenario(0,0,0.05,0.1)
+        s4 = Scenario(0,0,0.1,0.2)
+        s5 = Scenario(0,0.05,0.1,0.2)
+        s6 = Scenario(0,0.1,0.2,0.4)
+        s7 = Scenario(0.05,0.1,0.2,0.4)
+        s8 = Scenario(0.1,0.2,0.4,0.8)
+        #scenario_list = [s0]
+        scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
         return scenario_list
 
 

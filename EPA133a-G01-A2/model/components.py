@@ -277,7 +277,7 @@ class Vehicle(Agent):
         if isinstance(next_infra, Sink):
             # arrive at the sink
             self.arrive_at_next(next_infra, 0)
-            self.removed_at_step = self.model.schedule.steps
+            self.removed_at_step = self.model.schedule.step
             self.location.remove(self)
             return
         elif isinstance(next_infra, Bridge):
