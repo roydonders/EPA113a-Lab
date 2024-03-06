@@ -39,7 +39,6 @@ class Infra(Agent):
 class Bridge(Infra):
     """
     Creates delay time
-    Lukas's unnecesary comment code for test commit
 
     Attributes
     __________
@@ -59,12 +58,20 @@ class Bridge(Infra):
         self.condition = condition
 
         # TODO
-        self.delay_time = 0
+        self.delay_time = self.generate_delay_time()
         # print(self.delay_time)
 
     # TODO
     def get_delay_time(self):
         return self.delay_time
+
+    def generate_delay_time(self):
+        over200 = self.length > 200
+        b50and200 = 50 < self.length < 200
+        b10and50 = 10 < self.length < 50
+        under10 = self.length < 10
+
+
 
 
 # ---------------------------------------------------------------
