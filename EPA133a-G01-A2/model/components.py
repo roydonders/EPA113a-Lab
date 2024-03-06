@@ -226,12 +226,10 @@ class Vehicle(Agent):
 
     def __str__(self):
         return ("Vehicle" + str(self.unique_id) +
-                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) +
+                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) +  ' = (' + str(self.driving_time) + ')'
                 " " + str(self.state) + '(' + str(self.waiting_time) + ') ' +
                 str(self.location) + '(' + str(self.location.vehicle_count) + ') ' +
-                str(self.location_offset)
-                + ' generated at time (' + str(self.generated_at_step) + ')') + ' removed at time (' + str(
-            self.removed_at_step) + ')' + ' Total time spent driving (' + str(self.driving_time) + ')'
+                str(self.location_offset))
 
     def set_path(self):
         """
