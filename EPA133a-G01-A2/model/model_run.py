@@ -26,16 +26,27 @@ from components import Vehicle
 # ---------------------------------------------------------------
 
 # run time 5 x 24 hours; 1 tick 1 minute
-# run_length = 5 * 24 * 60
+run_length = 5 * 24 * 60
 
 # run time 1000 ticks
-run_length = 1000
+# run_length = 1000
 
 seed = 1234567
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
 
 
+def run_assignment2(run_length, seeds):
+    scenario_factory = ScenarioCreator()
+    scenario_0 = scenario_factory.scenarios[0]
 
+    # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
+    replication_factory = ReplicationCreator(run_length, seeds, scenario_0)
+    models = replication_factory.run_replications_assignment2()
+    return models
+
+finalmodels = run_assignment2(run_length, seeds)
+
+# Hieronder oude model
 # This is the name of the model that is beinig created
 sim_model = BangladeshModel(seed=seed)
 

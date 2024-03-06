@@ -10,7 +10,7 @@ class Scenario:
 class ScenarioCreator:
     scenarios = []
 
-    def __init__(self, n, create_scenarios_lab_2 = True):
+    def __init__(self, n = 9, create_scenarios_lab_2 = True):
         self.num_scenarios = n
         if (create_scenarios_lab_2):
             self.scenarios = self.create_lab2_scenarios()
@@ -35,12 +35,13 @@ class ReplicationCreator:
 
     # where to place seeds? input or random generator of seeds
     # meegeven dat hij ook een aantal replications kan doen?
-    def __init__(self, runtime, seeds, scenario, n = 10):
+    def __init__(self, runtime, seeds, scenario, n = 9):
         self.runtime = runtime
         # Need to check if N = length seeds!!!
         self.N = n
         self.seeds = seeds
         self.scenario = scenario
+
     # hier moet dan nog een export methode komen
     def run_replications_assignment2(self):
         reps = self.create_replications()
