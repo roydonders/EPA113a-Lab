@@ -231,7 +231,7 @@ class Vehicle(Agent):
                 str(self.location) + '(' + str(self.location.vehicle_count) + ') ' +
                 str(self.location_offset)
                 + ' generated at time (' + str(self.generated_at_step) + ')') + ' removed at time (' + str(
-            self.removed_at_step) + ')' + ' Time spent driving (' + str(self.driving_time) + ')'
+            self.removed_at_step) + ')' + ' Total time spent driving (' + str(self.driving_time) + ')'
 
     def set_path(self):
         """
