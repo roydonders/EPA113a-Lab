@@ -1,5 +1,4 @@
 from model import BangladeshModel
-
 class Scenario:
     def __init__(self, a, b, c, d):
         self.category_a_probability = a
@@ -42,7 +41,7 @@ class ModelsCreator:
         self.N = n
         self.seeds = seeds
         self.scenario = scenario
-
+    # hier moet dan nog een export methode komen
     def run_replications_assignment2(self):
         reps = self.create_replications()
         finalmodels = self.run_replications(reps)
