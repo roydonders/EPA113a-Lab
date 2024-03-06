@@ -37,36 +37,12 @@ def run_assignment2():
     print(f'finished running all the scenarios')
 
     # # base scenario_0 variables
-    # scenario_0 = scenarios[0]
-    # output = run_scenario_assignment2(scenario_0)
-
-    # Print output DataFrame for all scenarios
-    # print_output_dataframe(outputs)
-
-    # Print output in run_terminal
-    # print("outputs", outputs)
+    scenario_0 = scenarios[0]
+    output = run_scenario_assignment2(scenario_0)
+    # print("output", outputs)
     # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 
 
-# def print_output_dataframe(outputs):
-#     # Create DataFrame
-#     output_df = pd.DataFrame({'replication i': outputs})
-#     scenario_name = f'scenario_{Scenario}'
-#     print(f"Output DataFrame for {Scenario}:")
-#     print(output_df)
-#
-#     # Export DataFrame to Excel
-#     # export_to_excel(output_df)
-#
-#
-# def export_to_excel(df):
-#     # Export DataFrame to Excel file
-#     df.to_excel('data/output_df.xlsx', index=False)
-#     print("Output DataFrame exported to 'output.xlsx'")
-
-
-
-# Creates a list of scenarios using a ScenarioCreator
 def create_scenarios_assignment2():
     print(f'Creating scenarios...')
     scenario_factory = ScenarioCreator()
@@ -116,8 +92,6 @@ def get_average_driving_times(models):
 
 run_assignment2()
 
-
-
 # Hieronder oude model
 # This is the name of the model that is beinig created
 # sim_model = BangladeshModel(seed=seed)
@@ -128,3 +102,6 @@ run_assignment2()
 # One run with given steps
 # for i in range(run_length):
 #    sim_model.step()
+
+
+
