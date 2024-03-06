@@ -72,15 +72,23 @@ class ReplicationCreator:
     # hier moet dan nog een export methode komen
     # method runs replications for the specified scenario.
     def run_replications_assignment2(self):
+        average_times = []
+
         for i in range(self.N):
             replications = self.create_replications()
             final_models = self.run_replications(replications)
+
             total_driving_time = sum([vehicle.driving_time for model in final_models for vehicle in
                                       model.schedule.agents if isinstance(vehicle, Vehicle)])
             total_vehicles = sum([1 for model in final_models for vehicle in model.schedule.agents
                                   if isinstance(vehicle, Vehicle)])
+
             total_average_driving_time = total_driving_time / total_vehicles if total_vehicles != 0 else 0
+
             print("After", self.N, "Replications: Average Driving Time:", total_average_driving_time)
+            average_times.append(total_average_driving_time)
+            return average_times
+
 
     # method executes the model for each replication and collects the results
     def create_replications(self):

@@ -18,9 +18,9 @@ import pandas as pd
 # seed = 1234567
 
 # run time 1000 ticks oude model
-# run_length = 1000
+# run_length = 200
 # set to 10 for a fast run
-run_length = 1
+run_length = 10
 
 # Seeds for the different replications
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
@@ -77,14 +77,18 @@ def create_scenarios_assignment2():
 # Runs simulations for each scenario in the list and collects outputs.
 # also creates the dataframes that need to be outputted for the assignment
 def run_scenarios_assignment2(scenarios):
-
     outputs = []
+
     for s in scenarios:
         print(f'scenario {s} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
+
+        # Extract total average driving time from the last replication
+        total_avg_driving_time = o[-1]
+
         # Create dataframe for a scenario s
-        scenario_df = pd.DataFrame({'replication i': outputs})
+        scenario_df = pd.DataFrame({'replication i': range(len(o)), 'total_avg_driving_time': total_avg_driving_time})
         print(f"Output DataFrame for {s}:")
         print(scenario_df)
     return outputs
