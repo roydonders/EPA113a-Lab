@@ -31,7 +31,7 @@ class ScenarioCreator:
         return scenario_list
 
 
-class ModelsCreator:
+class ReplicationCreator:
 
     # where to place seeds? input or random generator of seeds
     # meegeven dat hij ook een aantal replications kan doen?
