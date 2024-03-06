@@ -75,12 +75,15 @@ def create_scenarios_assignment2():
 
 
 # Runs simulations for each scenario in the list and collects outputs.
+# also creates the dataframes that need to be outputted for the assignment
 def run_scenarios_assignment2(scenarios):
+
     outputs = []
     for s in scenarios:
         print(f'scenario {s} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
+        # Create dataframe for a scenario s
         scenario_df = pd.DataFrame({'replication i': outputs})
         print(f"Output DataFrame for {s}:")
         print(scenario_df)
