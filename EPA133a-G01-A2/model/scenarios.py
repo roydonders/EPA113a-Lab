@@ -1,52 +1,76 @@
 from model import BangladeshModel
-
 class Scenario:
     def __init__(self, a, b, c, d):
-        self.category_a_percentage = a
-        self.category_b_percentage = b
-        self.category_c_percentage = c
-        self.category_d_percentage = d
+        self.category_a_probability = a
+        self.category_b_probability = b
+        self.category_c_probability = c
+        self.category_d_probability = d
         # hier replications toevoegen?
 
 class ScenarioCreator:
     scenarios = []
 
-    def __init__(self, n, create_scenarios_lab_2 = True):
+    def __init__(self, n = 9, create_scenarios_lab_2 = True):
         self.num_scenarios = n
         if (create_scenarios_lab_2):
-            self.scenarios = self.create_scenarios_lab_2()
+            self.scenarios = self.create_lab2_scenarios()
 
     # Warning: hardcoding - should we perhaps read this in from excel file?
     def create_lab2_scenarios(self):
-        s1 = Scenario()
-        s2 = Scenario()
-        s3 = Scenario()
-        s4 = Scenario()
-        s5 = Scenario()
-        s6 = Scenario()
-        s7 = Scenario()
-        s8 = Scenario()
-        s9 = Scenario()
-        s10 = Scenario()
-        scenario_list = [s1,s2,s3,s4,s5,s6,s7,s8,s9,s10]
+        s0 = Scenario(0,0,0,0)
+        s1 = Scenario(0,0,0,0.05)
+        s2 = Scenario(0,0,0,0.1)
+        s3 = Scenario(0,0,0.05,0.1)
+        s4 = Scenario(0,0,0.1,0.2)
+        s5 = Scenario(0,0.05,0.1,0.2)
+        s6 = Scenario(0,0.1,0.2,0.4)
+        s7 = Scenario(0.05,0.1,0.2,0.4)
+        s8 = Scenario(0.1,0.2,0.4,0.8)
+        #scenario_list = [s0]
+        scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
         return scenario_list
 
 
-class ModelsCreator:
+class ReplicationCreator:
 
     # where to place seeds? input or random generator of seeds
     # meegeven dat hij ook een aantal replications kan doen?
-    def __init__(self, num_models, runtime, scenario_list = []):
+    def __init__(self, runtime, seeds, scenario, n = 10):
         self.runtime = runtime
-        self.N = num_models
-        self.scenarios = scenario_list
+        # Need to check if N = length seeds!!!
+        self.N = n
+        self.seeds = seeds
+        self.scenario = scenario
 
 
-    def create_models_scenarios(self):
-        # error if num_models is unequal to scenario_list length
-        seed = 0 # should fix this
-        # for all scenarios and numlength create model
+    # hier moet dan nog een export methode komen
+    def run_replications_assignment2(self):
+        print("Running Scenario", self.scenario)
+        reps = self.create_replications()
+        finalmodels = self.run_replications(reps)
+        return finalmodels
 
+    def create_replications(self):
+        replications = []
+        n = self.N
+        for i in range(n):
+
+            seed = self.seeds[i]
+            print("Creating Replication", i,"with seed", seed)
+            modeli = self.create_single_model(seed)
+
+            replications.append(modeli)
+        return replications
+
+    def run_replications(self, replications):
+        finalmodels = []
+        n = self.N
+        for i in range(n):
+            rep = replications[i]
+            print("Running Replication", i)
+            rep = self.run_single_model(rep)
+            finalmodels.append(rep)
+        return finalmodels
 
     def create_single_model(self, seed):
         sim_model = BangladeshModel(seed=seed)

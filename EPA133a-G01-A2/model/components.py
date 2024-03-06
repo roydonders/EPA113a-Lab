@@ -1,12 +1,8 @@
 from mesa import Agent
 from enum import Enum
-
-
 # comment 1 Fred
 
-
 # ---------------------------------------------------------------
-
 class Infra(Agent):
     """
     Base class for all infrastructure components
@@ -201,7 +197,6 @@ class Vehicle(Agent):
     """
 
     # 50 km/h translated into meter per min - changed into 48 km/h (change into subclass?
-    # (m / min)
     speed = 48 * 1000 / 60
     # One tick represents 1 minute
     step_time = 1
@@ -266,7 +261,6 @@ class Vehicle(Agent):
 
         # the distance that vehicle drives in a tick
         # speed is global now: can change to instance object when individual speed is needed
-        # distance is distance per tick
         distance = Vehicle.speed * Vehicle.step_time
         distance_rest = self.location_offset + distance - self.location.length
 
