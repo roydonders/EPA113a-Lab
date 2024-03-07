@@ -28,10 +28,7 @@ seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777,
 def run_assignment2():
     scenarios = create_scenarios_assignment2()
     outputs = run_scenarios_assignment2(scenarios)
-    scenario_0 = scenarios[0]
-    output = run_scenario_assignment2(scenario_0)
     print("output", outputs)
-    # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 
 
 def create_scenarios_assignment2():
@@ -56,7 +53,7 @@ def run_replications_assignment2(scenario):
     return models
 
 def get_average_driving_times(models):
-    return [0,0,0,0,0,0,0,0,0,0]
+    return [0,0,0,0,0,0,0,0,0,0] # this should return average driving times or some form of other output. Method can be changed
 
 
 run_assignment2()
