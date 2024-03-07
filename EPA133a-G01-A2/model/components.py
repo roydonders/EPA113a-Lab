@@ -58,6 +58,7 @@ class Bridge(Infra):
 
         self.condition = condition
 
+        self.broken = self.determine_broken()
         # TODO
         self.delay_time = 0
         self.generate_delay_generator()
