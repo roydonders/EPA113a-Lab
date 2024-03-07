@@ -3,6 +3,7 @@ from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
 from components import Source, Sink, SourceSink, Bridge, Link
 from datareader import DataReader
+from scenarios import Scenario
 import pandas as pd
 from collections import defaultdict
 
@@ -68,6 +69,7 @@ class BangladeshModel(Model):
         self.space = None
         self.sources = []
         self.sinks = []
+        self.scenario = scenario
 
         self.read_data()
         # test/executable code needs to be added here below and above generate model

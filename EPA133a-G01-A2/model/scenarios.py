@@ -70,18 +70,18 @@ class ReplicationCreator:
     # hier moet dan nog een export methode komen
     def run_replications_assignment2(self):
         print("Running Scenario", self.scenario)
-        reps = self.create_replications()
+        reps = self.create_replications(scenario=self.scenario)
         finalmodels = self.run_replications(reps)
         return finalmodels
 
-    def create_replications(self):
+    def create_replications(self, scenario):
         replications = []
         n = self.N
         for i in range(n):
 
             seed = self.seeds[i]
             print("Creating Replication", i,"with seed", seed)
-            modeli = self.create_single_model(seed)
+            modeli = self.create_single_model(seed, scenario)
 
             replications.append(modeli)
         return replications
@@ -96,8 +96,8 @@ class ReplicationCreator:
             finalmodels.append(rep)
         return finalmodels
 
-    def create_single_model(self, seed):
-        sim_model = BangladeshModel(seed=seed)
+    def create_single_model(self, seed, scenario):
+        sim_model = BangladeshModel(seed=seed, scenario=scenario)
         # here a scenario should be passed to
         # Check if the seed is set
         print("SEED " + str(sim_model._seed))
