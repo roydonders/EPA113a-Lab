@@ -53,7 +53,7 @@ class Bridge(Infra):
     """
 
     def __init__(self, unique_id, model, length=0,
-                 name='Unknown', road_name='Unknown', condition='Unknown'):
+                name='Unknown', road_name='Unknown', condition='Unknown', break_probability = 0):
         super().__init__(unique_id, model, length, name, road_name)
 
         self.condition = condition
@@ -84,7 +84,8 @@ class Bridge(Infra):
         else:
             raise ValueError("Invalid length provided")
 
-
+    def determine_broken(self):
+        probability =
 
 
 # ---------------------------------------------------------------

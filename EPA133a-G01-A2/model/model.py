@@ -148,7 +148,7 @@ class BangladeshModel(Model):
 
         # for each object df in the csv
         for df in df_objects_all:
-            # the _ is a place holder indicating that the value doesn't matter
+            # the _ is a placeholder indicating that the value doesn't matter
             # iterrows() is a pandas function which iterates over the rows
             for _, row in df.iterrows():    # index, row in ...
 
@@ -173,7 +173,10 @@ class BangladeshModel(Model):
                     self.sinks.append(agent.unique_id)
                 # code for bridges
                 elif model_type == 'bridge':
-                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], row['condition'])
+                    cond = row['condition']
+                    # Added: Each bridge now stores its probability of breaking
+                    p = self.scenario.get_probability(cond)
+                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, break_probability=p)
                 # code for peaces of road between infrastructe
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], row['name'], row['road'])
