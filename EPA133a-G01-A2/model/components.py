@@ -1,5 +1,6 @@
 from mesa import Agent
 from enum import Enum
+import random
 from delaygenerator import DelayTimeGenerator, UniformDelayTimeGenerator1, UniformDelayTimeGenerator2, UniformDelayTimeGenerator3, TriangularTimeGenerator
 # comment 1 Fred
 
@@ -57,7 +58,7 @@ class Bridge(Infra):
         super().__init__(unique_id, model, length, name, road_name)
 
         self.condition = condition
-
+        self.p = break_probability
         self.broken = self.determine_broken()
         # TODO
         self.delay_time = 0
@@ -85,7 +86,22 @@ class Bridge(Infra):
             raise ValueError("Invalid length provided")
 
     def determine_broken(self):
-        probability =
+        """
+        Generate a boolean value based on a given probability.
+
+        Returns:
+        - bool: True or False based on the probability p.
+
+        Raises:
+        - ValueError: If seed is not provided.
+        """
+        seed = self.seed
+        p = self.p
+        if seed is None:
+            raise ValueError("Seed must be provided for reproducibility.")
+
+        random.seed(seed)
+        return random.random() < p
 
 
 # ---------------------------------------------------------------
