@@ -56,7 +56,7 @@ class BangladeshModel(Model):
 
     step_time = 1
 
-    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0):
+    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=Scenario(0,0,0,0)):
 
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)

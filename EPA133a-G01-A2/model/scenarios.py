@@ -5,7 +5,30 @@ class Scenario:
         self.category_b_probability = b
         self.category_c_probability = c
         self.category_d_probability = d
-        # hier replications toevoegen?
+
+    def get_probability(self, s):
+        """
+        Returns the probability associated with the given category.
+
+        Parameters:
+        - s (str): A string representing the category ('A', 'B', 'C', or 'D').
+
+        Returns:
+        - float: The probability associated with the given category.
+
+        Raises:
+        - ValueError: If the input `s` is not 'A', 'B', 'C', or 'D'.
+        """
+        if s == 'A':
+            return self.category_a_probability
+        elif s == 'B':
+            return self.category_b_probability
+        elif s == 'C':
+            return self.category_c_probability
+        elif s == 'D':
+            return self.category_d_probability
+        else:
+            raise ValueError("Invalid input. s must be 'A', 'B', 'C', or 'D'.")
 
 class ScenarioCreator:
     scenarios = []
@@ -29,6 +52,7 @@ class ScenarioCreator:
         #scenario_list = [s0]
         scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
         return scenario_list
+
 
 
 class ReplicationCreator:
