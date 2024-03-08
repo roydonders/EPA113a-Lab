@@ -50,17 +50,16 @@ def create_scenarios_assignment2():
     return scenario_factory.scenarios
 
 
-# Runs simulations for each scenario in the list and collects outputs.
-# also creates the dataframes that need to be outputted for the assignment
-# and then saves the dataframes in csv inside EPA133a-G01-A2>model>experiment path
 def run_scenarios_assignment2(scenarios):
     outputs = []
 
-    # Create the "experiment" folder if it doesn't exist
-    experiment_folder = Path("experiment")
-    experiment_folder.mkdir(parents=True, exist_ok=True)
+    # Get the parent directory of the current Python script
+    parent_dir = Path(__file__).resolve().parent.parent
 
-    for i, s in enumerate(scenarios, start=0):
+    # Path to the "experiment" folder
+    experiment_folder = parent_dir / "experiment"
+
+    for i, s in enumerate(scenarios, start=0):  # Start index from 0
         print(f'Scenario {i} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
@@ -78,6 +77,7 @@ def run_scenarios_assignment2(scenarios):
         print(f"Output DataFrame for Scenario {i} saved to {output_path}")
 
     return outputs
+
 
 
 
