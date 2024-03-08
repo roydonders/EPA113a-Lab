@@ -103,13 +103,13 @@ class ReplicationCreator:
         # calculate the average driving time for all vehicles
         average_drive_time = self.calculate_average_drive_time(final_models)
 
-        # Print list of driving times of all vehicles
-        print("List of Driving Times of All Vehicles:")
-        for model in final_models:
-            for driving_time in model.schedule.drivingtimes:
-                # print driving time for all vehicles in terminal
-                print(driving_time)
-        # Print average drive time
+        # # Print list of driving times of all vehicles
+        # print("List of Driving Times of All Vehicles:")
+        # for model in final_models:
+        #     for driving_time in model.schedule.drivingtimes:
+        #         # print driving time for all vehicles in terminal
+        #         print(driving_time)
+        # # Print average drive time
         print("Average Drive Time:", average_drive_time)
 
         return final_models, average_drive_time
@@ -120,8 +120,11 @@ class ReplicationCreator:
 
         if total_drive_times:
             total_vehicles = len(total_drive_times)
+            print(total_vehicles)
             total_drive_time = sum(total_drive_times)
+            print(total_drive_time)
             average_drive_time = total_drive_time / total_vehicles
+            print(average_drive_time)
         else:
             average_drive_time = 0  # Handle the case when no vehicles arrived at sinks
         return average_drive_time
