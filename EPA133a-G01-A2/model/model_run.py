@@ -71,15 +71,16 @@ def run_scenarios_assignment2(scenarios):
         scenario_name = f'scenario{i}'
         print(f'Scenario {scenario_name} is running now')
 
-        # Run the scenario
+        # Run the scenario and receive a tuple with replication as first value and avg__driving time as second
         scenario_output = run_scenario_assignment2(s)
         outputs.append(scenario_output)
 
-        # Extract total average driving time from the last replication
+        # Extract averege driveing_time from the second value the scenario_output consists of
         avg_driving_time = scenario_output[1]
 
         # Create dataframe for the scenario
-        scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output)), 'avg_driving_time': avg_driving_time})
+        scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output[0])),
+                                            'avg_driving_time': avg_driving_time})
 
         # Save scenario dataframe to CSV using DataExporter
         exporter.export_scenario_csv(scenario_results_df, scenario_name)
@@ -92,9 +93,10 @@ def run_scenarios_assignment2(scenarios):
 # Very important to distinguish from run_scenarioS_assignment2!
 # This function runs simulations for each SINGLE scenario in the list and collects outputs
 def run_scenario_assignment2(scenario):
+    # receives a tuple with two values for called method
     output2 = run_replications_assignment2(scenario)
     #output = get_average_driving_times(models)
-    return output2
+    return output2 # output is a tuple of 2 values
 
 
 # Runs multiple replications for a scenario.
