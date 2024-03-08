@@ -115,20 +115,16 @@ class ReplicationCreator:
         return final_models, average_drive_time
 
     def calculate_average_drive_time(self, final_models):
-        # Flatten the list of driving times
-        total_drive_times = [driving_time for model in final_models for driving_time in model.schedule.drivingtimes]
+        average_drive_times = []
 
-        if total_drive_times:
-            # only count the vehicles that have a driving_time
-            total_vehicles = len(total_drive_times)
-            print(total_vehicles)
-            total_drive_time = sum(total_drive_times)
-            print(total_drive_time)
-            average_drive_time = total_drive_time / total_vehicles
-            print(average_drive_time)
-        else:
-            average_drive_time = 0  # Handle the case when no vehicles arrived at sinks
-        return average_drive_time
+        for model in final_models:
+            driving_times = model.schedule.drivingtimes
+            total_drive_time = sum(driving_times)
+            total_vehicles = len(driving_times)  # Count vehicles that have a driving_time
+            average_drive_time = total_drive_time / total_vehicles if total_vehicles != 0 else 0
+            average_drive_times.append(average_drive_time)
+
+        return average_drive_times
 
 
     # method executes the model for each replication and collects the results
