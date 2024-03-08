@@ -94,22 +94,36 @@ class ReplicationCreator:
     # hier moet dan nog een export methode komen
     # method runs replications for the specified scenario.
     def run_replications_assignment2(self):
-        average_times = []
 
-
+        # creates replications for teh scenario passed
         replications = self.create_replications(self.scenario)  # Pass scenario and seeds here
+        # all replications for all scenarios are stored in final models
         final_models = self.run_replications(replications)
+        # calculate the average driving time for all vehicles
+        average_drive_time = self.calculate_average_drive_time(final_models)
 
-        total_driving_time = sum([vehicle.driving_time for model in final_models for vehicle in
-                                  model.schedule.agents if isinstance(vehicle, Vehicle)])
-        total_vehicles = sum([1 for model in final_models for vehicle in model.schedule.agents
-                              if isinstance(vehicle, Vehicle)])
+        # Print list of driving times of all vehicles
+        print("List of Driving Times of All Vehicles:")
+        for model in final_models:
+            for driving_time in model.schedule.drivingtimes:
+                print(driving_time)
 
-        total_average_driving_time = total_driving_time / total_vehicles if total_vehicles != 0 else 0
+        # Print average drive time
+        print("Average Drive Time:", average_drive_time)
 
-        print("After", self.N, "Replications: Average Driving Time:", total_average_driving_time)
-        average_times.append(total_average_driving_time)
-        return average_times  # Moved outside of the loop to collect all average times
+        return final_models, average_drive_time
+
+    def calculate_average_drive_time(self, final_models):
+        # Flatten the list of driving times
+        total_drive_times = [driving_time for model in final_models for driving_time in model.schedule.drivingtimes]
+
+        if total_drive_times:
+            total_vehicles = len(total_drive_times)
+            total_drive_time = sum(total_drive_times)
+            average_drive_time = total_drive_time / total_vehicles
+        else:
+            average_drive_time = 0  # Handle the case when no vehicles arrived at sinks
+        return average_drive_time
 
 
     # method executes the model for each replication and collects the results
