@@ -17,7 +17,7 @@ from pathlib import Path
 # run_length = 5 * 24 * 60
 # seed = 1234567
 
-# run time 1000 ticks oude model
+# run time 1000 ticks old file
 # run_length = 1000
 # set to 10 for a fast run
 run_length = 5 * 24 * 60
