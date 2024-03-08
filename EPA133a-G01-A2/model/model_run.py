@@ -1,4 +1,3 @@
-from model import BangladeshModel
 # dont forget to import what you need here
 from components import Infra
 from components import Bridge

@@ -5,7 +5,7 @@ from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
 from components import Source, Sink, SourceSink, Bridge, Link
 from datareader import DataReader
-from scenarios import Scenario
+
 import pandas as pd
 from collections import defaultdict
 
@@ -18,7 +18,6 @@ def set_lat_lon_bound(lat_min, lat_max, lon_min, lon_max, edge_ratio=0.02):
 
     Add white borders at edges (default 2%) of the bounding box
     """
-
     lat_edge = (lat_max - lat_min) * edge_ratio
     lon_edge = (lon_max - lon_min) * edge_ratio
 
@@ -59,7 +58,7 @@ class BangladeshModel(Model):
 
     step_time = 1
 
-    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=Scenario(0,0,0,0)):
+    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=None):
 
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
