@@ -99,6 +99,7 @@ class ReplicationCreator:
         replications = self.create_replications(self.scenario)  # Pass scenario and seeds here
         # all replications for all scenarios are stored in final models
         final_models = self.run_replications(replications)
+
         # calculate the average driving time for all vehicles
         average_drive_time = self.calculate_average_drive_time(final_models)
 
@@ -106,8 +107,8 @@ class ReplicationCreator:
         print("List of Driving Times of All Vehicles:")
         for model in final_models:
             for driving_time in model.schedule.drivingtimes:
+                # print driving time for all vehicles in terminal
                 print(driving_time)
-
         # Print average drive time
         print("Average Drive Time:", average_drive_time)
 
