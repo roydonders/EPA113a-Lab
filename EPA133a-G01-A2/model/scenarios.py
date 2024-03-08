@@ -64,7 +64,7 @@ class ScenarioCreator:
     # method creates scenarios for the lab assignment based on predefined probabilities.
     # Warning: hardcoding - should we perhaps read this in from excel file?
     def create_lab2_scenarios(self):
-        s0 = Scenario(0,0,0,0)
+        s0 = Scenario(0.1,0.1,0.1,0.1)
         s1 = Scenario(0,0,0,0.05)
         s2 = Scenario(0,0,0,0.1)
         s3 = Scenario(0,0,0.05,0.1)

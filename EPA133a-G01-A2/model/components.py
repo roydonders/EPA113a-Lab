@@ -245,6 +245,7 @@ class Vehicle(Agent):
         self.pos = generated_by.pos
         self.path_ids = path_ids
         # default values
+        self.driving_time = 0
         self.state = Vehicle.State.DRIVE
         self.location_index = 0
         self.waiting_time = 0
@@ -252,7 +253,6 @@ class Vehicle(Agent):
         self.removed_at_step = None
         # total driving time ==> removed_at_step - generated_at_step == aantal ticks in systeem
         # self.driving_time = self.removed_at_step - self.generated_at_step
-        self.driving_time = 0
 
     def __str__(self):
         return ("Vehicle" + str(self.unique_id) +
@@ -279,6 +279,9 @@ class Vehicle(Agent):
 
         if self.state == Vehicle.State.DRIVE:
             self.drive()
+
+        # Update driving time at each step
+        self.driving_time = self.model.schedule.steps - self.generated_at_step
 
         """
         To print the vehicle trajectory at each step

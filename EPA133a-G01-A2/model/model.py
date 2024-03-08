@@ -231,7 +231,8 @@ class BangladeshModel(Model):
         if seed is None:
             raise ValueError("Seed must be provided for reproducibility.")
 
-        random.seed(seed)
-        return random.random() < p
+        test_p = random.random()
+        broken = test_p < p
+        return broken
 
 # EOF -----------------------------------------------------------
