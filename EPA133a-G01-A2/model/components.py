@@ -61,10 +61,14 @@ class Bridge(Infra):
         self.broken = broken
         # TODO
         self.delay_time = 0
-        self.generate_delay_generator()
+        if broken:
+            self.generate_delay_generator()
         # print(self.delay_time)
 
     def get_delay_time(self):
+        if not self.broken:
+            return 0
+
         dg = self.delay_gen
         delay = dg.get_delay()
         print("Delay time", delay)
