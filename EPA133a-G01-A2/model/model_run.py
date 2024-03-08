@@ -20,7 +20,7 @@ from pathlib import Path
 # run time 1000 ticks oude model
 # run_length = 1000
 # set to 10 for a fast run
-run_length = 10
+run_length = 5
 
 # Seeds for the different replications
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
@@ -60,7 +60,7 @@ def run_scenarios_assignment2(scenarios):
     experiment_folder = Path("experiment")
     experiment_folder.mkdir(parents=True, exist_ok=True)
 
-    for i, s in enumerate(scenarios, start=1):
+    for i, s in enumerate(scenarios, start=0):
         print(f'Scenario {i} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
