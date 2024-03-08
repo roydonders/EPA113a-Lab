@@ -82,8 +82,6 @@ class ScenarioCreator:
 # of the model for a given scenario.
 class ReplicationCreator:
 
-    # where to place seeds? input or random generator of seeds
-    # meegeven dat hij ook een aantal replications kan doen?
     def __init__(self, runtime, seeds, scenario, n = 10):
         self.runtime = runtime
         # Need to check if N = length seeds!!!
@@ -98,24 +96,24 @@ class ReplicationCreator:
     def run_replications_assignment2(self):
         average_times = []
 
-        for i in range(self.N):
-            replications = self.create_replications(self.scenario, self.seeds[i])  # Pass scenario and seed here
-            final_models = self.run_replications(replications)
 
-            total_driving_time = sum([vehicle.driving_time for model in final_models for vehicle in
-                                      model.schedule.agents if isinstance(vehicle, Vehicle)])
-            total_vehicles = sum([1 for model in final_models for vehicle in model.schedule.agents
-                                  if isinstance(vehicle, Vehicle)])
+        replications = self.create_replications(self.scenario)  # Pass scenario and seeds here
+        final_models = self.run_replications(replications)
 
-            total_average_driving_time = total_driving_time / total_vehicles if total_vehicles != 0 else 0
+        total_driving_time = sum([vehicle.driving_time for model in final_models for vehicle in
+                                  model.schedule.agents if isinstance(vehicle, Vehicle)])
+        total_vehicles = sum([1 for model in final_models for vehicle in model.schedule.agents
+                              if isinstance(vehicle, Vehicle)])
 
-            print("After", self.N, "Replications: Average Driving Time:", total_average_driving_time)
-            average_times.append(total_average_driving_time)
+        total_average_driving_time = total_driving_time / total_vehicles if total_vehicles != 0 else 0
+
+        print("After", self.N, "Replications: Average Driving Time:", total_average_driving_time)
+        average_times.append(total_average_driving_time)
         return average_times  # Moved outside of the loop to collect all average times
 
 
     # method executes the model for each replication and collects the results
-    def create_replications(self, scenario, seed):
+    def create_replications(self, scenario):
         replications = []
         n = self.N
 

@@ -20,7 +20,7 @@ from pathlib import Path
 # run time 1000 ticks oude model
 # run_length = 1000
 # set to 10 for a fast run
-run_length = 5
+run_length = 10
 
 # Seeds for the different replications
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
@@ -92,9 +92,9 @@ def run_scenarios_assignment2(scenarios):
 # Very important to distinguish from run_scenarioS_assignment2!
 # This function runs simulations for each SINGLE scenario in the list and collects outputs
 def run_scenario_assignment2(scenario):
-    models = run_replications_assignment2(scenario)
-    output = get_average_driving_times(models)
-    return output
+    output2 = run_replications_assignment2(scenario)
+    #output = get_average_driving_times(models)
+    return output2
 
 
 # Runs multiple replications for a scenario.
