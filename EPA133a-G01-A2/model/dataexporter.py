@@ -1,38 +1,30 @@
 import pandas as pd
+from pathlib import Path
 
 class DataExporter:
-    def write_csv_file(self, filename, df):
+    def __init__(self, folder_name="experiment"):
         """
-        Write DataFrame to a CSV file with given filename.
+        Initializes the DataExporter object.
 
-        Args:
-            filename (str): The name of the CSV file to write.
-            df (DataFrame): Pandas DataFrame to be written to the CSV file.
+        Parameters:
+        - folder_name (str): Name of the folder where CSV files will be saved.
         """
-        df.to_csv(filename, index=False)
+        # Find parent directory of the current Python script
+        parent_dir = Path(__file__).resolve().parent.parent
+        self.output_folder = parent_dir / folder_name
+        self.output_folder.mkdir(parents=True, exist_ok=True)
 
-    def convert_driving_times_to_csv(self, dataframes):
+    def export_scenario_csv(self, scenario_df, scenario_name):
         """
-        Convert list of Pandas DataFrames of average driving times into CSV files with appropriate titles.
+        Exports scenario DataFrame to a CSV file.
 
-        Args:
-            dataframes (list): A list of Pandas DataFrames containing average driving times to be converted.
+        Parameters:
+        - scenario_df (DataFrame): DataFrame containing scenario data.
+        - scenario_name (str): Name of the scenario for file naming.
         """
-        for i, df in enumerate(dataframes):
-            # Generate filename for the CSV file
-            filename = f"scenario{i}.csv"
+        output_filename = f'{scenario_name}.csv'
+        output_path = self.output_folder / output_filename
+        scenario_df.to_csv(output_path, index=False)
+        print(f"Output DataFrame for Scenario {scenario_name} saved to {output_path}")
 
-            # Write data to the CSV file
-            self.write_csv_file(filename, df)
 
-# Example usage:
-exporter = DataExporter()
-
-# Sample dataframes (you can replace this with your actual dataframes)
-df1 = pd.DataFrame({'Day': [1, 2, 3, 4], 'Average Driving Time': [1.5, 2.0, 1.8, 1.6]})
-df2 = pd.DataFrame({'Day': [1, 2, 3, 4], 'Average Driving Time': [2.2, 1.9, 2.5, 2.3]})
-df3 = pd.DataFrame({'Day': [1, 2, 3, 4], 'Average Driving Time': [1.7, 1.8, 1.6, 1.9]})
-dataframes = [df1, df2, df3]
-
-# Convert list of dataframes to CSV files
-exporter.convert_driving_times_to_csv(dataframes)

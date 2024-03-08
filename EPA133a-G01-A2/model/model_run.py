@@ -1,8 +1,8 @@
-# dont forget to import what you need here
 from components import Infra
 from components import Bridge
 from components import Vehicle
 from scenarios import ScenarioCreator, ReplicationCreator, Scenario
+from dataexporter import DataExporter
 import pandas as pd
 from pathlib import Path
 
@@ -51,30 +51,38 @@ def create_scenarios_assignment2():
 
 
 def run_scenarios_assignment2(scenarios):
+    """
+    Runs simulations for each scenario in the list and collects outputs.
+    Creates the dataframes that need to be outputted for the assignment
+    and then saves the dataframes in CSV inside the "experiment" folder.
+
+    Parameters:
+    - scenarios: List of scenario objects
+
+    Returns:
+    - list: List of outputs for each scenario.
+    """
     outputs = []
 
-    # Get the parent directory of the current Python script
-    parent_dir = Path(__file__).resolve().parent.parent
+    # Initialize DataExporter
+    exporter = DataExporter()
 
-    # Path to the "experiment" folder
-    experiment_folder = parent_dir / "experiment"
+    for i, s in enumerate(scenarios):  # Start index from 0
+        scenario_name = f'scenario{i}'
+        print(f'Scenario {scenario_name} is running now')
 
-    for i, s in enumerate(scenarios, start=0):  # Start index from 0
-        print(f'Scenario {i} is running now')
-        o = run_scenario_assignment2(s)
-        outputs.append(o)
+        # Run the scenario
+        scenario_output = run_scenario_assignment2(s)
+        outputs.append(scenario_output)
 
         # Extract total average driving time from the last replication
-        total_avg_driving_time = o[-1]
+        total_avg_driving_time = scenario_output[-1]
 
-        # Create dataframe for a scenario s
-        scenario_df = pd.DataFrame({'replication i': range(len(o)), 'total_avg_driving_time': total_avg_driving_time})
+        # Create dataframe for the scenario
+        scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output)), 'total_avg_driving_time': total_avg_driving_time})
 
-        # Save scenario dataframe to CSV
-        output_filename = f'scenario{i}.csv'
-        output_path = experiment_folder / output_filename
-        scenario_df.to_csv(output_path, index=False)
-        print(f"Output DataFrame for Scenario {i} saved to {output_path}")
+        # Save scenario dataframe to CSV using DataExporter
+        exporter.export_scenario_csv(scenario_results_df, scenario_name)
 
     return outputs
 
