@@ -68,6 +68,7 @@ canvas_height = 400
 
 space = SimpleCanvas(agent_portrayal, canvas_width, canvas_height)
 
+# We did not manage to change this into our expanded version unfortunately
 server = ModularServer(BangladeshModel,
                        [space],
                        "Transport Model Demo",

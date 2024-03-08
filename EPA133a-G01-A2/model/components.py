@@ -23,7 +23,7 @@ class Infra(Agent):
     """
 
     def __init__(self, unique_id, model, length=0,
-                 name='Unknown_Fred', road_name='Unknown'):
+                 name='Unknown', road_name='Unknown'):
         super().__init__(unique_id, model)
         self.length = length
         self.name = name
@@ -31,7 +31,6 @@ class Infra(Agent):
         self.vehicle_count = 0
 
     def step(self):
-        # Bij deze, groetjes
         pass
 
     def __str__(self):
@@ -116,8 +115,6 @@ class Sink(Infra):
         self.model.schedule.drivingtimes.append(vehicle.driving_time)
         self.model.schedule.remove(vehicle)
         self.vehicle_removed_toggle = not self.vehicle_removed_toggle
-        # default output when a vehicle gets removed
-        # Sink1001296 REMOVE VehicleTruck5207 + 35 - 616 = (581) State.DRIVE(0) Sink1001296(8) 0
         print(str(self) + ' REMOVE ' + str(vehicle))
 
 
@@ -226,7 +223,7 @@ class Vehicle(Agent):
 
     """
 
-    # 50 km/h translated into meter per min - changed into 48 km/h (change into subclass?
+    # originally 50 km/h - changed into 48 km/h translated into meter per min
     speed = 48 * 1000 / 60
     # One tick represents 1 minute
     step_time = 1
@@ -251,8 +248,6 @@ class Vehicle(Agent):
         self.waiting_time = 0
         self.waited_at = None
         self.removed_at_step = None
-        # total driving time ==> removed_at_step - generated_at_step == aantal ticks in systeem
-        # self.driving_time = self.removed_at_step - self.generated_at_step
 
     def __str__(self):
         return ("Vehicle" + str(self.unique_id) +

@@ -1,24 +1,51 @@
-# Example README File
+# README File
 
-Created by: EPA133a Group xx
+Created by: EPA133a Group 01
 
-|    Name     | Student Number |
-| :---------: | :------------- |
-| Mary White  | 1234567        |
-| David Brown | 7654321        |
+|         Name          | Student Number |
+| :-------------------: | :------------: |
+| Fred Nieuwenhuijzen  |     4353943    |
+| Timon Otter           |     5884586    |
+| Bram Verbeek          |     4962850    |
+| Lukas van der Wolf    |     5150264    |
 
 ## Introduction
 
-Every project should have a README file to help a first-time user understand what it is about and how they might be able to use it. This file is where you (as a group) shall provide the information needed by the TAs to evaluate and grade your work.
+Thank you for using our model and program.
 
-If you are looking for information about the Demo model of Assignment 2, navigate to the [model/README.md](model/README.md) in the [model](model) directory. Have **fun** modeling in Python!
+This assignment focuses on model generation and component building using Mesa, a Python3 agent-based simulation environment. Please note that this assignment builds upon previous work (the Demo model kindly provided to us).
+
+Our objective is to study the effects of bridge maintenance or unavailability on traffic throughput for a major road in Bangladesh, specifically the N1 highway from Chittagong to Dhaka.
+
+Mesa's object-oriented approach simplifies the creation of user-defined models and libraries, allowing us to develop a demo model of goods transport over selected roads in Bangladesh. Bridges and ferries are crucial components of Bangladesh's transport system, often causing delays after natural disasters.
+
+We aim to automatically generate a Mesa model to analyze the impact of bridge conditions on traffic along the Chittagong-Dhaka section of the N1 highway. We'll simulate trucks' movement from Chittagong to Dhaka, measuring delays and travel times.
+
+The assignment entails creating a "business as usual" model (Scenario 0) and introducing scenarios with varying probabilities of bridge breakdowns for different quality categories (A to D). Each scenario will be replicated 10 times to assess reliability.
+
+Output files, named "scenario1.csv", "scenario2.csv", etc., will be placed in the "experiment" folder of the submission directory "EPA133a-G01-A2". We'll analyze the effects of each scenario on truck driving time and discuss the results in a report.
+
+If you are looking for information about the Demo model of Assignment 2, navigate to the [model/README.md](model/README.md) in the [model](model) directory.
 
 ## How to Use
 
-Include whatever you think is necessary for someone to understand your work. The README file is usually the first file someone will see and open. It doesn't need to explain what might be obvious, but it should point out the most important things for someone looking at your work. For example, how to launch your program, what are the main files, where to find them, etc.
+To access the experiment results, navigate to the "experiment" folder. Here, you'll find CSV files containing the output data for each scenario.
 
-### Format
+If you wish to run the model and generate the experiment results yourself:
 
-Most README files for data or software projects are now written in Markdown format, like this document. There are some different flavours, but they are easy to write. See here for more information https://www.markdownguide.org/basic-syntax
+1. Navigate to the "models" directory.
 
-Most IDEs can render Markdown files directly.
+2. Run the `model_run.py` file using Python 3.11 or 3.12
+
+This will execute the model with predefined seeds used in our experiments.
+
+3. The experiment results will be generated as CSV files using the specified seeds. Feel free to modify parameters such as seeds or runtime in the `model_run.py` file for your own experimentation.
+
+### Main files
+
+The model_run.py creates 9 predefined scenarios and 10 replications per scenario using scenario.py (please see attached the report for additional information).c
+
+datareader.py is used for reading data in, dataexporter.py is used for exporting data.
+
+For more details, please see the README in the models folder.
+
