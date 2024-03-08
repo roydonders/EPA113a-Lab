@@ -76,10 +76,10 @@ def run_scenarios_assignment2(scenarios):
         outputs.append(scenario_output)
 
         # Extract total average driving time from the last replication
-        total_avg_driving_time = scenario_output[-1]
+        avg_driving_time = scenario_output[1]
 
         # Create dataframe for the scenario
-        scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output)), 'total_avg_driving_time': total_avg_driving_time})
+        scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output)), 'avg_driving_time': avg_driving_time})
 
         # Save scenario dataframe to CSV using DataExporter
         exporter.export_scenario_csv(scenario_results_df, scenario_name)

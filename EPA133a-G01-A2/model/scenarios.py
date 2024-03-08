@@ -119,6 +119,7 @@ class ReplicationCreator:
         total_drive_times = [driving_time for model in final_models for driving_time in model.schedule.drivingtimes]
 
         if total_drive_times:
+            # only count the vehicles that have a driving_time
             total_vehicles = len(total_drive_times)
             print(total_vehicles)
             total_drive_time = sum(total_drive_times)
