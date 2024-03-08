@@ -54,12 +54,11 @@ class Bridge(Infra):
     """
 
     def __init__(self, unique_id, model, length=0,
-                name='Unknown', road_name='Unknown', condition='Unknown', break_probability = 0):
+                name='Unknown', road_name='Unknown', condition='Unknown', broken = False):
         super().__init__(unique_id, model, length, name, road_name)
 
         self.condition = condition
-        self.p = break_probability
-        self.broken = self.determine_broken()
+        self.broken = broken
         # TODO
         self.delay_time = 0
         self.generate_delay_generator()
@@ -85,23 +84,7 @@ class Bridge(Infra):
         else:
             raise ValueError("Invalid length provided")
 
-    def determine_broken(self):
-        """
-        Generate a boolean value based on a given probability.
 
-        Returns:
-        - bool: True or False based on the probability p.
-
-        Raises:
-        - ValueError: If seed is not provided.
-        """
-        seed = self.seed
-        p = self.p
-        if seed is None:
-            raise ValueError("Seed must be provided for reproducibility.")
-
-        random.seed(seed)
-        return random.random() < p
 
 
 # ---------------------------------------------------------------

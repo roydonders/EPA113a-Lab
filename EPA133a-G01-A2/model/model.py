@@ -1,3 +1,5 @@
+import random
+
 from mesa import Model
 from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
@@ -73,7 +75,7 @@ class BangladeshModel(Model):
 
         self.read_data()
         # test/executable code needs to be added here below and above generate model
-
+        self.seed = seed
         # generates the model according to csv file component information
         self.generate_model()
         print(f'test print statement 1')
@@ -174,9 +176,9 @@ class BangladeshModel(Model):
                 # code for bridges
                 elif model_type == 'bridge':
                     cond = row['condition']
-                    # Added: Each bridge now stores its probability of breaking
-                    p = self.scenario.get_probability(cond)
-                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, break_probability=p)
+                    # Added: Each bridge now stores if it is broken
+                    broken = self.determine_if_bridge_broken(cond)
+                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, broken=broken)
                 # code for peaces of road between infrastructe
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], row['name'], row['road'])
@@ -211,5 +213,23 @@ class BangladeshModel(Model):
     def read_data(self):
         datareader = DataReader()
         datareader.get_roads()
+
+    def determine_if_bridge_broken(self, cond):
+        """
+                Generate a boolean value based on a given probability.
+
+                Returns:
+                - bool: True or False based on the probability p.
+
+                Raises:
+                - ValueError: If seed is not provided.
+        """
+        seed = self.seed
+        p = self.scenario.get_probability(cond)
+        if seed is None:
+            raise ValueError("Seed must be provided for reproducibility.")
+
+        random.seed(seed)
+        return random.random() < p
 
 # EOF -----------------------------------------------------------
