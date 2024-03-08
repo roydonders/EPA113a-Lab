@@ -14,13 +14,13 @@ from pathlib import Path
 # ---------------------------------------------------------------
 
 # run time 5 x 24 hours; 1 tick 1 minute
-# run_length = 5 * 24 * 60
-# seed = 1234567
+run_length = 5 * 24 * 60
+# seed = 12345678
 
-# run time 1000 ticks old file
+# run time 1000 ticks oude model
 # run_length = 1000
 # set to 10 for a fast run
-run_length = 5 * 24 * 60
+# run_length = 300
 
 # Seeds for the different replications
 seeds = [1234567, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
