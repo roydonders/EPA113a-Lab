@@ -4,6 +4,7 @@ from components import Bridge
 from components import Vehicle
 from scenarios import ScenarioCreator, ReplicationCreator, Scenario
 import pandas as pd
+from pathlib import Path
 
 """
     Run simulation
@@ -51,11 +52,16 @@ def create_scenarios_assignment2():
 
 # Runs simulations for each scenario in the list and collects outputs.
 # also creates the dataframes that need to be outputted for the assignment
+# and then saves the dataframes in csv inside EPA133a-G01-A2>model>experiment path
 def run_scenarios_assignment2(scenarios):
     outputs = []
 
-    for s in scenarios:
-        print(f'scenario {s} is running now')
+    # Create the "experiment" folder if it doesn't exist
+    experiment_folder = Path("experiment")
+    experiment_folder.mkdir(parents=True, exist_ok=True)
+
+    for i, s in enumerate(scenarios, start=1):
+        print(f'Scenario {i} is running now')
         o = run_scenario_assignment2(s)
         outputs.append(o)
 
@@ -64,9 +70,15 @@ def run_scenarios_assignment2(scenarios):
 
         # Create dataframe for a scenario s
         scenario_df = pd.DataFrame({'replication i': range(len(o)), 'total_avg_driving_time': total_avg_driving_time})
-        print(f"Output DataFrame for {s}:")
-        print(scenario_df)
+
+        # Save scenario dataframe to CSV
+        output_filename = f'scenario{i}.csv'
+        output_path = experiment_folder / output_filename
+        scenario_df.to_csv(output_path, index=False)
+        print(f"Output DataFrame for Scenario {i} saved to {output_path}")
+
     return outputs
+
 
 
 # Very important to distinguish from run_scenarioS_assignment2!
