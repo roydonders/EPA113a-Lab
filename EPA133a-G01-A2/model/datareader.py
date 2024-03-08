@@ -4,30 +4,6 @@ import pandas as pd
 
 
 class DataReader:
-    """
-    The short expl
-
-    Long explanation
-
-    Class Attributes: TODO below is incorrect
-    -----------------
-    step_time: int
-        step_time = 1 # 1 step is 1 min
-
-    path_ids_dict: defaultdict
-        Key: (origin, destination)
-        Value: the shortest path (Infra component IDs) from an origin to a destination
-
-        Since there is only one road in the Demo, the paths are added with the road info;
-        when there is a more complex network layout, the paths need to be managed differently
-
-    sources: list
-        all sources in the network
-
-    sinks: list
-        all sinks in the network
-
-    """
 
 
     def __init__(self):
@@ -67,4 +43,7 @@ class DataReader:
         csv_import = self.path
         # Read in dataframe
         df_import = pd.read_csv(csv_import)
+
         return df_import
+
+
