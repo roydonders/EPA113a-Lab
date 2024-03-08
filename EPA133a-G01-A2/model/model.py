@@ -64,6 +64,7 @@ class BangladeshModel(Model):
 
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
+        self.schedule.drivingtimes = []
         # state of the model needs to be running
         self.running = True
         # contains default dictionary containing all the connected paths ids

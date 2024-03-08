@@ -113,6 +113,7 @@ class Sink(Infra):
     vehicle_removed_toggle = False
 
     def remove(self, vehicle):
+        self.model.schedule.drivingtimes.append(vehicle.driving_time)
         self.model.schedule.remove(vehicle)
         self.vehicle_removed_toggle = not self.vehicle_removed_toggle
         # default output when a vehicle gets removed
