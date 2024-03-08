@@ -1,3 +1,4 @@
+# # remove model from import because of circular dependencie
 from model import BangladeshModel
 from components import Vehicle
 
@@ -18,6 +19,30 @@ class Scenario:
         self.scenario_id = Scenario.next_scenario_id
         # Increment the next scenario ID for the next scenario
         Scenario.next_scenario_id += 1
+
+    def get_probability(self, s):
+        """
+        Returns the probability associated with the given category.
+
+        Parameters:
+        - s (str): A string representing the category ('A', 'B', 'C', or 'D').
+
+        Returns:
+        - float: The probability associated with the given category.
+
+        Raises:
+        - ValueError: If the input `s` is not 'A', 'B', 'C', or 'D'.
+        """
+        if s == 'A':
+            return self.category_a_probability
+        elif s == 'B':
+            return self.category_b_probability
+        elif s == 'C':
+            return self.category_c_probability
+        elif s == 'D':
+            return self.category_d_probability
+        else:
+            raise ValueError("Invalid input. s must be 'A', 'B', 'C', or 'D'.")
 
     def __str__(self):
         s_id = str(self.scenario_id)
@@ -59,14 +84,13 @@ class ReplicationCreator:
 
     # where to place seeds? input or random generator of seeds
     # meegeven dat hij ook een aantal replications kan doen?
-    def __init__(self, runtime, seeds, scenario_name, n = 10):
+    def __init__(self, runtime, seeds, scenario, n = 10):
         self.runtime = runtime
         # Need to check if N = length seeds!!!
         # N is number of replications for ReplicationCreator class
         self.N = n
         self.seeds = seeds
-        self.scenario_name = scenario_name
-        # print(self.scenario_name)
+        self.scenario = scenario
 
 
     # hier moet dan nog een export methode komen
@@ -75,7 +99,7 @@ class ReplicationCreator:
         average_times = []
 
         for i in range(self.N):
-            replications = self.create_replications()
+            replications = self.create_replications(self.scenario, self.seeds[i])  # Pass scenario and seed here
             final_models = self.run_replications(replications)
 
             total_driving_time = sum([vehicle.driving_time for model in final_models for vehicle in
@@ -87,20 +111,21 @@ class ReplicationCreator:
 
             print("After", self.N, "Replications: Average Driving Time:", total_average_driving_time)
             average_times.append(total_average_driving_time)
-            return average_times
+        return average_times  # Moved outside of the loop to collect all average times
 
 
     # method executes the model for each replication and collects the results
-    def create_replications(self):
+    def create_replications(self, scenario, seed):
         replications = []
         n = self.N
 
         for i in range(n):
+
             seed = self.seeds[i]
             print("Creating Replication", i,"with seed", seed)
-            model_i = self.create_single_model(seed, self.scenario_name, i)
+            modeli = self.create_single_model(seed, scenario)
 
-            replications.append(model_i)
+            replications.append(modeli)
         return replications
 
     # method executes the model for each replication and collects the results
@@ -114,14 +139,8 @@ class ReplicationCreator:
             finalmodels.append(rep)
         return finalmodels
 
-    # creates a single model instance(BangladeshModel) for a replication.
-    # It initializes the model with the provided seed, scenario, and replication number.
-    def create_single_model(self, seed, scenario_name, rep_number):
-        # Ensure scenario_name is a string
-        scenario_name_str = str(scenario_name)
-        sim_model = BangladeshModel(seed=seed, scenario_name=scenario_name_str, replication = rep_number)
-        sim_model.replication_number = rep_number
-        sim_model.scenario_name = scenario_name_str
+    def create_single_model(self, seed, scenario):
+        sim_model = BangladeshModel(seed=seed, scenario=scenario)
         # here a scenario should be passed to
         # Check if the seed is set
         print("SEED " + str(sim_model._seed))
@@ -134,4 +153,3 @@ class ReplicationCreator:
         return sim_model
 
 
-# EOF -----------------------------------------------------------

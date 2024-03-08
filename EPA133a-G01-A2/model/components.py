@@ -1,5 +1,6 @@
 from mesa import Agent
 from enum import Enum
+import random
 from delaygenerator import DelayTimeGenerator, UniformDelayTimeGenerator1, UniformDelayTimeGenerator2, UniformDelayTimeGenerator3, TriangularTimeGenerator
 # comment 1 Fred
 
@@ -54,17 +55,22 @@ class Bridge(Infra):
     """
 
     def __init__(self, unique_id, model, length=0,
-                 name='Unknown', road_name='Unknown', condition='Unknown'):
+                name='Unknown', road_name='Unknown', condition='Unknown', broken = False, seed=None):
         super().__init__(unique_id, model, length, name, road_name)
 
         self.condition = condition
-
+        self.broken = broken
+        self.seed = seed
         # TODO
         self.delay_time = 0
-        self.generate_delay_generator()
+        if broken:
+            self.generate_delay_generator()
         # print(self.delay_time)
 
     def get_delay_time(self):
+        if not self.broken:
+            return 0
+
         dg = self.delay_gen
         delay = dg.get_delay()
         print("Delay time", delay)

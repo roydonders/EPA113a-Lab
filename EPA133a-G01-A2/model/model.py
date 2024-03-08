@@ -1,8 +1,12 @@
+import random
+
 from mesa import Model
 from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
 from components import Source, Sink, SourceSink, Bridge, Link
 from datareader import DataReader
+# # remove scenarios because of circular import
+# from scenarios import Scenario
 import pandas as pd
 from collections import defaultdict
 
@@ -56,9 +60,7 @@ class BangladeshModel(Model):
 
     step_time = 1
 
-    output_df = pd.DataFrame(columns=['replication i'])
-
-    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario_name=None, replication = None):
+    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=None):
 
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
@@ -70,23 +72,21 @@ class BangladeshModel(Model):
         self.space = None
         self.sources = []
         self.sinks = []
-
-        # assigns the scenario of the model
-        self.scenario_name = scenario_name
+        self.scenario = scenario
 
         self.read_data()
         # test/executable code needs to be added here below and above generate model
-
+        self.seed = seed
         # generates the model according to csv file component information
         self.generate_model()
-        print(f'bangladesh model initilized')
+        print(f'test print statement 1')
 
     def read_in_data(self):
         dr = DataReader()
         df = dr.get_roads()
         return df
 
-    def generate_model(self):
+    def generate_model(self, seed=None):
         """
         generate the simulation model according to the csv file component information
 
@@ -151,7 +151,7 @@ class BangladeshModel(Model):
 
         # for each object df in the csv
         for df in df_objects_all:
-            # the _ is a place holder indicating that the value doesn't matter
+            # the _ is a placeholder indicating that the value doesn't matter
             # iterrows() is a pandas function which iterates over the rows
             for _, row in df.iterrows():    # index, row in ...
 
@@ -176,7 +176,10 @@ class BangladeshModel(Model):
                     self.sinks.append(agent.unique_id)
                 # code for bridges
                 elif model_type == 'bridge':
-                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], row['condition'])
+                    cond = row['condition']
+                    # Added: Each bridge now stores if it is broken
+                    broken = self.determine_if_bridge_broken(cond)
+                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, broken=broken, seed=seed)
                 # code for peaces of road between infrastructe
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], row['name'], row['road'])
@@ -212,7 +215,22 @@ class BangladeshModel(Model):
         datareader = DataReader()
         datareader.get_roads()
 
-    def __str__(self):
-        return print(f'Bangladesh model output df: \n {output_df}')
+    def determine_if_bridge_broken(self, cond):
+        """
+                Generate a boolean value based on a given probability.
+
+                Returns:
+                - bool: True or False based on the probability p.
+
+                Raises:
+                - ValueError: If seed is not provided.
+        """
+        seed = self.seed
+        p = self.scenario.get_probability(cond)
+        if seed is None:
+            raise ValueError("Seed must be provided for reproducibility.")
+
+        random.seed(seed)
+        return random.random() < p
 
 # EOF -----------------------------------------------------------
