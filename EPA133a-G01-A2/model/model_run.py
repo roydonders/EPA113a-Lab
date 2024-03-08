@@ -17,7 +17,7 @@ import pandas as pd
 # seed = 1234567
 
 # run time 1000 ticks oude model
-# run_length = 200
+# run_length = 1000
 # set to 10 for a fast run
 run_length = 10
 
