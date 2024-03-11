@@ -51,7 +51,7 @@ class Bridge(Infra):
     """
 
     def __init__(self, unique_id, model, length=0,
-                 name='Unknown', road_name='Unknown', condition='Unknown'):
+                 name='Unknown', road_name='Unknown', condition='Unknown',  broken = False, seed = None):
         super().__init__(unique_id, model, length, name, road_name)
 
         self.condition = condition

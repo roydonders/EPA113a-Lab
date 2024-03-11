@@ -218,13 +218,13 @@ class BangladeshModel(Model):
 
     def determine_if_bridge_broken(self, cond):
         """
-                Generate a boolean value based on a given probability.
+        Generate a boolean value based on a given probability.
 
-                Returns:
-                - bool: True or False based on the probability p.
+        Returns:
+        - bool: True or False based on the probability p.
 
-                Raises:
-                - ValueError: If seed is not provided.
+        Raises:
+        - ValueError: If seed is not provided.
         """
         seed = self.seed
         p = self.scenario.get_probability(cond)

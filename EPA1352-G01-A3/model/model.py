@@ -143,7 +143,11 @@ class BangladeshModel(Model):
                     self.sources.append(agent.unique_id)
                     self.sinks.append(agent.unique_id)
                 elif model_type == 'bridge':
-                    agent = Bridge(row['id'], self, row['length'], name, row['road'], row['condition'])
+                    # Added: Each bridge now stores if it is broken
+                    cond = row['condition']
+                    broken = self.determine_if_bridge_broken(cond)
+                    agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, broken=broken,
+                                   seed=self.seed)
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], name, row['road'])
                 elif model_type == 'intersection':
@@ -183,5 +187,8 @@ class BangladeshModel(Model):
         Advance the simulation by one step.
         """
         self.schedule.step()
+
+    def determine_if_bridge_broken(self, cond):
+        return False
 
 # EOF -----------------------------------------------------------
