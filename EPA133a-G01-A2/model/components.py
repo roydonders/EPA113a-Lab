@@ -63,20 +63,31 @@ class Bridge(Infra):
         # TODO
         self.delay_time = 0
         if broken:
-            self.generate_delay_generator()
+            self.generate_delay_time()
         # print(self.delay_time)
 
-    def get_delay_time(self):
+    def generate_delay_time(self):
         if not self.broken:
             return 0
 
-        dg = self.delay_gen
-        delay = dg.get_delay()
-        print("Delay time", delay)
-        self.delay_time = delay
-        return delay
+        self.generate_delay()
+        return self.delay
+
+    def generate_delay(self):
+        length = self.length
+        if self.length > 200:
+            self.delay = self.get_triangular_delay(1,2,3)
+        elif 50 < self.length <= 200:
+            self.delay = self.get_uniform_delay(1,2)
+        elif 10 < self.length <= 50:
+            self.delay = self.get_uniform_delay(2,4)
+        elif self.length <= 10:
+            self.delay = self.get_uniform_delay(4,7)
+        else:
+            raise ValueError("Invalid length provided")
 
     def generate_delay_generator(self):
+        # No longer used.
         length = self.length
         if self.length > 200:
             self.delay_gen = TriangularTimeGenerator()
@@ -88,6 +99,11 @@ class Bridge(Infra):
             self.delay_gen = UniformDelayTimeGenerator3()
         else:
             raise ValueError("Invalid length provided")
+    def get_triangular_delay(self, min, max, mode):
+        return 0
+
+    def get_uniform_delay(self, min, max):
+        return 0
 
 
 

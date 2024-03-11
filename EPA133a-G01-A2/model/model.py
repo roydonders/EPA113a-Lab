@@ -61,7 +61,7 @@ class BangladeshModel(Model):
     step_time = 1
 
     def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=None):
-
+        super().__init__()
         # all agents need to be added to the mesa scheduler
         self.schedule = BaseScheduler(self)
         self.schedule.drivingtimes = []
@@ -231,7 +231,7 @@ class BangladeshModel(Model):
         if seed is None:
             raise ValueError("Seed must be provided for reproducibility.")
 
-        test_p = random.random()
+        test_p = self.random.random()
         broken = test_p < p
         return broken
 
