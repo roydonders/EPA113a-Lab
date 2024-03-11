@@ -14,7 +14,7 @@ from pathlib import Path
 # ---------------------------------------------------------------
 
 # run time 5 x 24 hours; 1 tick 1 minute
-run_length = 100
+run_length = 400
 # seed = 12345678
 
 # run time 1000 ticks oude model
@@ -88,15 +88,13 @@ def run_scenarios_assignment2(scenarios):
     return outputs
 
 
-
-
 # Very important to distinguish from run_scenarioS_assignment2!
 # This function runs simulations for each SINGLE scenario in the list and collects outputs
 def run_scenario_assignment2(scenario):
     # receives a tuple with two values for called method
     output2 = run_replications_assignment2(scenario)
-    #output = get_average_driving_times(models)
-    return output2 # output is a tuple of 2 values
+    # output = get_average_driving_times(models)
+    return output2  # output is a tuple of 2 values
 
 
 # Runs multiple replications for a scenario.
@@ -106,14 +104,9 @@ def run_replications_assignment2(scenario):
     return models
 
 
-# Computes and returns average driving times from simulation results.
-def get_average_driving_times(models):
-    return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
 run_assignment2()
 
-# Hieronder oude model
+# Old model
 # This is the name of the model that is beinig created
 # sim_model = BangladeshModel(seed=seed)
 
@@ -123,6 +116,3 @@ run_assignment2()
 # One run with given steps
 # for i in range(run_length):
 #    sim_model.step()
-
-
-
