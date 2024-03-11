@@ -1,7 +1,5 @@
 from mesa import Agent
 from enum import Enum
-from delaygenerator import DelayTimeGenerator, UniformDelayTimeGenerator1, UniformDelayTimeGenerator2, UniformDelayTimeGenerator3, TriangularTimeGenerator
-# comment 1 Fred
 
 # ---------------------------------------------------------------
 
@@ -59,45 +57,46 @@ class Bridge(Infra):
         self.condition = condition
         self.broken = broken
         self.seed = seed
-        # TODO
-        self.delay_time = 0
+        self.delay = 0
         if broken:
-            self.generate_delay_time()
+            self.get_delay_time()
         # print(self.delay_time)
 
-    def generate_delay_time(self):
-        if not self.broken:
-            return 0
+    def get_delay_time(self):
+        if self.broken:
+            self.generate_delay()
+        elif self.delay != 0:
+            # Else (if not broken), self.delay should be 0 by default. If this is not the case, throw an error.
+            raise ValueError("Delay for operational bridge not set properly")
 
-        self.generate_delay()
         return self.delay
 
     def generate_delay(self):
         length = self.length
-        if self.length > 200:
+        if length > 200:
             self.delay = self.random.triangular(60, 240, 120)
-        elif 50 < self.length <= 200:
+        elif 50 < length <= 200:
             self.delay = self.random.uniform(45, 90)
-        elif 10 < self.length <= 50:
+        elif 10 < length <= 50:
             self.delay = self.random.uniform(15, 60)
-        elif self.length <= 10:
+        elif length <= 10:
             self.delay = self.random.uniform(10, 20)
         else:
             raise ValueError("Invalid length provided")
 
-    def generate_delay_generator(self):
-        # No longer used.
-        length = self.length
-        if self.length > 200:
-            self.delay_gen = TriangularTimeGenerator()
-        elif 50 < self.length <= 200:
-            self.delay_gen = UniformDelayTimeGenerator1()
-        elif 10 < self.length <= 50:
-            self.delay_gen = UniformDelayTimeGenerator2()
-        elif self.length <= 10:
-            self.delay_gen = UniformDelayTimeGenerator3()
-        else:
-            raise ValueError("Invalid length provided")
+    # def generate_delay_generator(self):
+    #     # No longer used.
+    #     length = self.length
+    #     if self.length > 200:
+    #         self.delay_gen = TriangularTimeGenerator()
+    #     elif 50 < self.length <= 200:
+    #         self.delay_gen = UniformDelayTimeGenerator1()
+    #     elif 10 < self.length <= 50:
+    #         self.delay_gen = UniformDelayTimeGenerator2()
+    #     elif self.length <= 10:
+    #         self.delay_gen = UniformDelayTimeGenerator3()
+    #     else:
+    #         raise ValueError("Invalid length provided")
 
 
 
