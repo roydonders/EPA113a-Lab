@@ -220,11 +220,13 @@ class Vehicle(Agent):
         self.waiting_time = 0
         self.waited_at = None
         self.removed_at_step = None
+        # ass2 implemented initial
+        self.driving_time = 0
 
     def __str__(self):
         return "Vehicle" + str(self.unique_id) + \
                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) + \
-               " " + str(self.state) + '(' + str(self.waiting_time) + ') ' + \
+               " = (" + str(self.driving_time) + ")" + " " + str(self.state) + '(' + str(self.waiting_time) + ') ' + \
                str(self.location) + '(' + str(self.location.vehicle_count) + ') ' + str(self.location_offset)
 
     def set_path(self):
@@ -245,6 +247,12 @@ class Vehicle(Agent):
 
         if self.state == Vehicle.State.DRIVE:
             self.drive()
+
+        # ass 2 implemented for vehicles to retrieve which step it currently is
+        # than subtract the step at which the vehicle is generated for the
+        # driving time of the vehicle
+        # Update driving time at each step
+        self.driving_time = self.model.schedule.steps - self.generated_at_step
 
         """
         To print the vehicle trajectory at each step

@@ -147,7 +147,7 @@ class BangladeshModel(Model):
                     cond = row['condition']
                     broken = self.determine_if_bridge_broken(cond)
                     agent = Bridge(row['id'], self, row['length'], row['name'], row['road'], cond, broken=broken,
-                                   seed=self.seed)
+                                   seed=self._seed)
                 elif model_type == 'link':
                     agent = Link(row['id'], self, row['length'], name, row['road'])
                 elif model_type == 'intersection':
@@ -189,6 +189,15 @@ class BangladeshModel(Model):
         self.schedule.step()
 
     def determine_if_bridge_broken(self, cond):
+        # # ass2 code
+        # seed = self.seed
+        # p = self.scenario.get_probability(cond)
+        # if seed is None:
+        #     raise ValueError("Seed must be provided for reproducibility.")
+        #
+        # test_p = self.random.random()
+        # broken = test_p < p
+        # return broken
         return False
 
 # EOF -----------------------------------------------------------
