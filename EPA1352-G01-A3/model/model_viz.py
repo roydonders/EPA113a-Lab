@@ -5,6 +5,7 @@ from components import Source, Sink, Bridge, Link, Intersection, Infra
 
 """
 Run simulation with Visualization 
+
 Print output at terminal
 """
 
