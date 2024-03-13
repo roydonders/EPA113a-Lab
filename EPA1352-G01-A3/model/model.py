@@ -2,6 +2,7 @@ from mesa import Model
 from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
 from components import Source, Sink, SourceSink, Bridge, Link, Intersection
+from datareader import DataReader
 import pandas as pd
 from collections import defaultdict
 
@@ -57,7 +58,7 @@ class BangladeshModel(Model):
 
     file_name = '../data/demo-4.csv'
 
-    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario = None):
+    def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=None):
 
         self.schedule = BaseScheduler(self)
         self.running = True
@@ -66,8 +67,14 @@ class BangladeshModel(Model):
         self.sources = []
         self.sinks = []
         self.seed = seed
+        self.scenario = scenario
 
         self.generate_model()
+
+    def read_in_data(self):
+        dr = DataReader()
+        df = dr.get_roads()
+        return df
 
     def generate_model(self):
         """
@@ -77,6 +84,8 @@ class BangladeshModel(Model):
         """
 
         df = pd.read_csv(self.file_name)
+        #change this to read in data (currently from assignment 2)
+        #df = self.read_in_data()
 
         # a list of names of roads to be generated
         # TODO You can also read in the road column to generate this list automatically
@@ -190,16 +199,21 @@ class BangladeshModel(Model):
         self.schedule.step()
 
     def determine_if_bridge_broken(self, cond):
-        # # ass2 code
-        # seed = self.seed
-        # p = self.scenario.get_probability(cond)
-        # if seed is None:
-        #     raise ValueError("Seed must be provided for reproducibility.")
-        #
-        # test_p = self.random.random()
-        # broken = test_p < p
-        # return broken
-        return False
+        # ass2 code placeholder for reading in file : return False
+        if self.scenario is None:
+            return False
+
+        # Check if seed is set
+        seed = self.seed
+        if seed is None:
+            raise ValueError("Seed must be provided for reproducibility.")
+        # Get the probability of breaking from the datafile: p
+        p = self.scenario.get_probability(cond)
+        # Derive a random test_pE(0,1) from self.random
+        test_p = self.random.random()
+        # Determine if the bridge is broken or not
+        broken = test_p < p
+        return broken
 
 
 

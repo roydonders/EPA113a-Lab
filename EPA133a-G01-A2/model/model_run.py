@@ -23,7 +23,7 @@ from pathlib import Path
 run_length = 300
 
 # Seeds for the different replications
-seeds = [1234567, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
+seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
 
 
 # this function is defined to orchestrate the simulation process.

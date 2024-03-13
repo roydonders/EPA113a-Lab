@@ -34,8 +34,8 @@ class DataReader:
         # Path to the data folder
         data_folder = os.path.join(parent_dir, 'data')
 
-        # Assuming the CSV file is named 'final_n1_network.csv'
-        csv_file_path = os.path.join(data_folder, 'final_n1_network.csv')
+        # Assuming the CSV file is named 'ass2_final_n1_network.csv'
+        csv_file_path = os.path.join(data_folder, 'ass2_final_n1_network.csv')
         return csv_file_path
 
     def get_roads(self):

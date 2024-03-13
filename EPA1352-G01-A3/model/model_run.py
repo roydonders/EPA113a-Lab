@@ -9,7 +9,7 @@ from scenarios import ScenarioCreator
 # ---------------------------------------------------------------
 
 # run time 5 x 24 hours; 1 tick 1 minute
-run_length = 400
+run_length = 300
 
 # run time 1000 ticks
 # run_length = 1000
