@@ -2,6 +2,7 @@
 # of the model for a given scenario.
 from model import BangladeshModel
 
+
 class ReplicationCreator:
 
     def __init__(self, runtime, seeds, scenario, n=10):
@@ -12,7 +13,6 @@ class ReplicationCreator:
         self.seeds = seeds
         self.scenario = scenario
 
-    # hier moet dan nog een export methode komen
     # method runs replications for the specified scenario.
     def run_replications_assignment2(self):
 
@@ -36,6 +36,7 @@ class ReplicationCreator:
         return final_models, average_drive_time
 
     def calculate_average_drive_time(self, final_models):
+        return [100]
         average_drive_times = []
 
         for model in final_models:

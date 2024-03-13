@@ -1,9 +1,9 @@
-# # remove model from import because of circular dependencie
-from model import BangladeshModel
-from components import Vehicle
-
-
 # This class represents a scenario with probabilities for bridge quality
+import pandas as pd
+
+from dataexporter import DataExporter
+from replications import ReplicationCreator
+
 class Scenario:
     # Class variable to keep track of the next scenario ID
     next_scenario_id = 0
@@ -54,15 +54,17 @@ class ScenarioCreator:
     scenarios = []
 
     # allows for specifying the number of scenarios to create
-    def __init__(self, n = 9, create_scenarios_lab_2 = True):
+    def __init__(self, seeds, run_length, n = 9, create_scenarios_lab_2 = True):
         # number of scenarios
         self.num_scenarios = n
+        self.seeds = seeds
+        self.run_length = run_length
 
         if (create_scenarios_lab_2):
-            self.scenarios = self.create_lab2_scenarios()
+            self.create_lab2_scenarios()
 
     # method creates scenarios for the lab assignment based on predefined probabilities.
-    # Warning: hardcoding - should we perhaps read this in from excel file?
+    # Warning: hardcoding - should we perhaps read this in from Excel file?
     def create_lab2_scenarios(self):
         s0 = Scenario(0,0,0,0)
         s1 = Scenario(0,0,0,0.05)
@@ -75,7 +77,64 @@ class ScenarioCreator:
         s8 = Scenario(0.1,0.2,0.4,0.8)
         #scenario_list = [s0]
         scenario_list = [s0,s1,s2,s3,s4,s5,s6,s7,s8]
-        return scenario_list
+        self.scenarios = scenario_list
+
+    def create_lab3_scenarios(self):
+        s0 = 0
+        s1 = 1
+        s2 = 2
+        s3 = 3
+        s4 = 4
+
+    def run_scenarios_assignment2(self):
+        """
+        Runs simulations for each scenario in the list and collects outputs.
+        Creates the dataframes that need to be outputted for the assignment
+        and then saves the dataframes in CSV inside the "experiment" folder.
+
+        Returns:
+        - list: List of outputs for each scenario.
+        """
+        outputs = []
+
+        # Initialize DataExporter
+        exporter = DataExporter()
+        scenarios = self.scenarios
+
+        for i, s in enumerate(scenarios):  # Start index from 0
+            scenario_name = f'scenario{i}'
+            print(f'Scenario {scenario_name} is running now')
+
+            # Run the scenario and receive a tuple with replication as first value and avg__driving time as second
+            scenario_output = self.run_scenario_assignment2(s)
+            outputs.append(scenario_output)
+
+            # Extract averege driveing_time from the second value the scenario_output consists of
+            #avg_driving_time = scenario_output[1]
+            avg_driving_time = 100
+
+            # Create dataframe for the scenario
+            scenario_results_df = pd.DataFrame({'replication i': range(len(scenario_output[0])),
+                                                'avg_driving_time': avg_driving_time})
+
+            # Save scenario dataframe to CSV using DataExporter
+            exporter.export_scenario_csv(scenario_results_df, scenario_name)
+
+        return outputs
+
+    # Very important to distinguish from run_scenarioS_assignment2!
+    # This function runs simulations for each SINGLE scenario in the list and collects outputs
+    def run_scenario_assignment2(self, scenario):
+        # receives a tuple with two values for called method
+        output2 = self.run_replications_assignment2(scenario)
+        # output = get_average_driving_times(models)
+        return output2  # output is a tuple of 2 values
+
+    # Runs multiple replications for a scenario.
+    def run_replications_assignment2(self, scenario):
+        replication_factory = ReplicationCreator(self.run_length, self.seeds, scenario)
+        models = replication_factory.run_replications_assignment2()
+        return models
 
 
 
