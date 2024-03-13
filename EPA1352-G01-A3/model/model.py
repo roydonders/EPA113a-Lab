@@ -65,6 +65,7 @@ class BangladeshModel(Model):
         self.space = None
         self.sources = []
         self.sinks = []
+        self.seed = seed
 
         self.generate_model()
 
@@ -190,5 +191,7 @@ class BangladeshModel(Model):
 
     def determine_if_bridge_broken(self, cond):
         return False
+
+
 
 # EOF -----------------------------------------------------------
