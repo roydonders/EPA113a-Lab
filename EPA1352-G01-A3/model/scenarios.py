@@ -80,11 +80,13 @@ class ScenarioCreator:
         self.scenarios = scenario_list
 
     def create_lab3_scenarios(self):
-        s0 = 0
-        s1 = 1
-        s2 = 2
-        s3 = 3
-        s4 = 4
+        s0 = Scenario(0,0,0,0)
+        s1 = Scenario(0,0,0,5)
+        s2 = Scenario(0,0,5,10)
+        s3 = Scenario(0,5,10,20)
+        s4 = Scenario(5,10,20,40)
+        scenario_list = [s0,s1,s2,s3,s4]
+        self.scenarios = scenario_list
 
     def run_scenarios_assignment2(self):
         """
