@@ -12,8 +12,8 @@ from scenarios import ScenarioCreator
 #run_length = 30
 run_length = 5 * 24 * 60
 
-# run time 1000 ticks
-# run_length = 1000
+# run time 100 ticks
+# run_length = 100
 
 # Seeds for the different replications
 seeds = [0000000, 1111111, 2222222, 3333333, 4444444, 5555555, 6666666, 7777777, 8888888, 9999999]
