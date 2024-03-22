@@ -300,7 +300,7 @@ def generate_nx_model(df):
     G = add_edges(G, df)
 
     # Optional: plot the network for debugging purposes
-    plot_network(G)
+    # plot_network(G)
     return G
 
 
