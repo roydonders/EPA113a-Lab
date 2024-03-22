@@ -9,7 +9,8 @@ from scenarios import ScenarioCreator
 # ---------------------------------------------------------------
 
 # run time 5 x 24 hours; 1 tick 1 minute
-run_length = 30
+#run_length = 30
+run_length = 5 * 24 * 60
 
 # run time 1000 ticks
 # run_length = 1000
@@ -26,7 +27,7 @@ def run_assignment3():
     program.run_scenarios_assignment3()
 
 
-# run_assignment3()
+run_assignment3()
 
 
 # This function is the old code standard present in the assignment.
@@ -46,4 +47,4 @@ def one_run():
 
 
 # For debugging
-one_run()
+#one_run()
