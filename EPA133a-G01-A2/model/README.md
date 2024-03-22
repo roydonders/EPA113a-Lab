@@ -104,7 +104,7 @@ To install the requirements, open a terminal/command line window in PyCharm and 
   scenario_creator = ScenarioCreator()
   scenario = scenario_creator.scenarios[0]  # Select a scenario from the list of created scenarios
   replication_creator = ReplicationCreator(runtime=100, seeds=[123, 456, 789], scenario=scenario, n=3)
-  final_models, average_drive_time = replication_creator.run_replications_assignment2()
+  final_models, average_drive_time = replication_creator.run_replications_assignment3()
 
   # Access results
   for model in final_models:

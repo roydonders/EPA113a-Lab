@@ -1,3 +1,5 @@
+import networkx as nx
+from matplotlib import pyplot as plt
 from mesa import Model
 from mesa.time import BaseScheduler
 from mesa.space import ContinuousSpace
@@ -27,6 +29,7 @@ def set_lat_lon_bound(lat_min, lat_max, lon_min, lon_max, edge_ratio=0.02):
 
 
 # ---------------------------------------------------------------
+
 class BangladeshModel(Model):
     """
     The main (top-level) simulation model
@@ -45,6 +48,7 @@ class BangladeshModel(Model):
 
         Only straight paths in the Demo are added into the dict;
         when there is a more complex network layout, the paths need to be managed differently
+        The above is done with the Assignment 3 changes below.
 
     sources: list
         all sources in the network
@@ -56,13 +60,18 @@ class BangladeshModel(Model):
 
     step_time = 1
 
-    file_name = '../data/demo-4.csv'
+    # Not used anymore due to separate datareader class
+    # file_name = '../data/demo-4.csv'
 
     def __init__(self, seed=None, x_max=500, y_max=500, x_min=0, y_min=0, scenario=None):
 
+        self.G = None
+        self.roads = None
         self.schedule = BaseScheduler(self)
+        self.schedule.drivingtimes = []
         self.running = True
-        self.path_ids_dict = defaultdict(lambda: pd.Series())
+        # Paths id changed to standard dictionary
+        self.path_ids_dict = {}
         self.space = None
         self.sources = []
         self.sinks = []
@@ -70,11 +79,7 @@ class BangladeshModel(Model):
         self.scenario = scenario
 
         self.generate_model()
-
-    def read_in_data(self):
-        dr = DataReader()
-        df = dr.get_roads()
-        return df
+        print("Generated model")
 
     def generate_model(self):
         """
@@ -83,13 +88,18 @@ class BangladeshModel(Model):
         Warning: the labels are the same as the csv column labels
         """
 
-        df = pd.read_csv(self.file_name)
-        #change this to read in data (currently from assignment 2)
-        #df = self.read_in_data()
+        # Not used anymore - kept for clarity
+        # df = pd.read_csv(self.file_name)
+
+        # Read in data
+        df = read_in_data()
 
         # a list of names of roads to be generated
-        # TODO You can also read in the road column to generate this list automatically
-        roads = ['N1', 'N2']
+        # Changed: Read the road list in automatically
+        roads = df['road'].unique().tolist()
+        # Print for debugging/clarification
+        print(roads)
+        self.roads = roads
 
         df_objects_all = []
         for road in roads:
@@ -100,23 +110,28 @@ class BangladeshModel(Model):
                 df_objects_all.append(df_objects_on_road)
 
                 """
+                NO LONGER USED, KEPT IN CODE/COMMENT FOR CLARIFICATION (what is changed in the code)
                 Set the path 
                 1. get the serie of object IDs on a given road in the cvs in the original order
                 2. add the (straight) path to the path_ids_dict
                 3. put the path in reversed order and reindex
                 4. add the path to the path_ids_dict so that the vehicles can drive backwards too
                 """
-                path_ids = df_objects_on_road['id']
-                path_ids.reset_index(inplace=True, drop=True)
-                self.path_ids_dict[path_ids[0], path_ids.iloc[-1]] = path_ids
-                self.path_ids_dict[path_ids[0], None] = path_ids
-                path_ids = path_ids[::-1]
-                path_ids.reset_index(inplace=True, drop=True)
-                self.path_ids_dict[path_ids[0], path_ids.iloc[-1]] = path_ids
-                self.path_ids_dict[path_ids[0], None] = path_ids
+                # path_ids = df_objects_on_road['id']
+                # path_ids.reset_index(inplace=True, drop=True)
+                # self.path_ids_dict[path_ids[0], path_ids.iloc[-1]] = path_ids
+                # self.path_ids_dict[path_ids[0], None] = path_ids
+                # path_ids = path_ids[::-1]
+                # path_ids.reset_index(inplace=True, drop=True)
+                # self.path_ids_dict[path_ids[0], path_ids.iloc[-1]] = path_ids
+                # self.path_ids_dict[path_ids[0], None] = path_ids
 
         # put back to df with selected roads so that min and max and be easily calculated
         df = pd.concat(df_objects_all)
+
+        # Changed: Generate nx model, call the graph G
+        self.G = generate_nx_model(df)
+        print("Generated NX model")
         y_min, y_max, x_min, x_max = set_lat_lon_bound(
             df['lat'].min(),
             df['lat'].max(),
@@ -180,11 +195,46 @@ class BangladeshModel(Model):
             sink = self.random.choice(self.sinks)
             if sink is not source:
                 break
+        # Debugging prints
+        print(f"I come from {source} and will go to {sink}")
+        path = self.lookup_path(source, sink)
+        print(f"And thus I will travel path {path}")
+        return path
+
+    def get_route(self, source):
+        # Changed to return random route instead of straight route
+        return self.get_random_route(source)
+
+    # Added methods lookup path and calculate the shortest path
+    def lookup_path(self, source, sink):
+        """
+        Lookup the shortest path between two nodes.
+
+        Args:
+            source: Source node.
+            sink: Sink node.
+
+        Returns:
+            list: List representing the shortest path between source and sink.
+        """
+        # Try to return the (shortest) path from paths dictionary, but calculate/store first if not yet present
+        if (source, sink) not in self.path_ids_dict:
+            self.calculate_shortest_path(source, sink)
+
         return self.path_ids_dict[source, sink]
 
-    # TODO
-    def get_route(self, source):
-        return self.get_straight_route(source)
+    def calculate_shortest_path(self, source, sink):
+        """
+        Calculate the shortest path between two nodes using NetworkX & Dijkstra's Algorithm.
+
+        Args:
+            source: Source node.
+            sink: Sink node.
+        """
+        # Calculate the shortest path using Dijkstra's Algorithm
+        path = nx.dijkstra_path(self.G, source, sink)
+        # store in path dictionary
+        self.path_ids_dict[source, sink] = path
 
     def get_straight_route(self, source):
         """
@@ -199,7 +249,6 @@ class BangladeshModel(Model):
         self.schedule.step()
 
     def determine_if_bridge_broken(self, cond):
-        # ass2 code placeholder for reading in file : return False
         if self.scenario is None:
             return False
 
@@ -216,5 +265,120 @@ class BangladeshModel(Model):
         return broken
 
 
+# Below are newly added methods for assignment 3
+def read_in_data():
+    """
+    Read road data using DataReader.
+
+    Returns:
+        pandas.DataFrame: DataFrame containing road data.
+    """
+    dr = DataReader()
+    df = dr.get_roads()
+    return df
+
+
+def generate_nx_model(df):
+    """
+    Generate a NetworkX graph model from a DataFrame.
+
+    Args:
+        df (pandas.DataFrame): DataFrame containing road network data.
+
+    Returns:
+        nx.Graph: NetworkX graph representing the road network.
+    """
+    # Convert lat and lon columns to numeric
+    # df['lat'] = pd.to_numeric(df['lat'])
+    # df['lon'] = pd.to_numeric(df['lon'])
+
+    # Create a graph
+    G = nx.Graph()
+
+    # Add nodes and edges with weights from the dataframe
+    G = add_nodes(G, df)
+    G = add_edges(G, df)
+
+    # Optional: plot the network for debugging purposes
+    plot_network(G)
+    return G
+
+
+def add_nodes(G, df):
+    """
+    Add nodes to the graph.
+
+    Args:
+        G (nx.Graph): NetworkX graph.
+        df (pandas.DataFrame): DataFrame containing road network data.
+
+    Returns:
+        nx.Graph: NetworkX graph with added nodes.
+    """
+    # Add nodes
+    for index, row in df.iterrows():
+        longitude = row['lon']
+        latitude = row['lat']
+
+        # Give a node corresponding id, longitude, and latitude
+        G.add_node(row['id'], pos=(longitude, latitude))
+    return G
+
+
+def add_edges(G, df):
+    """
+    Add edges to the graph based on the road.
+
+    Args:
+        G (nx.Graph): NetworkX graph.
+        df (pandas.DataFrame): DataFrame containing road network data.
+
+    Returns:
+        nx.Graph: NetworkX graph with added edges.
+    """
+    # Add edges based on the road
+    for road in df['road'].unique():
+        # Add edges for each road separately, by making a copy of the df per road
+        road_df = df[df['road'] == road]
+
+        # For each node (not at the end), add an edge
+        for i in range(len(road_df) - 1):
+            # current node
+            u = road_df.iloc[i]['id']
+            # next node
+            v = road_df.iloc[i + 1]['id']
+            # weight
+            w = road_df.iloc[i]['length']
+
+            # Add edge
+            G.add_edge(u, v, weight=w)
+    return G
+
+
+def plot_network(G):
+    """
+    Plot the network graph. Optional, helpful for debugging.
+
+    Args:
+        G (nx.Graph): NetworkX graph to be plotted.
+    """
+    # Optional method for plotting/debugging
+    # Test for calculating shortest path (optional)
+    # path = nx.dijkstra_path(G, 1000000, 1000013)
+    # print(f"shortest path is {path}")
+    # Plotting
+    pos = nx.get_node_attributes(G, 'pos')
+    plt.figure(figsize=(80, 48))
+    # Draw nodes
+    nx.draw(G, pos, with_labels=True, node_size=50, node_color='orange', font_size=5)
+    labels = nx.get_edge_attributes(G, 'weight')
+    # Draw edges
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=labels, font_color='darkred', font_size=7)
+    # Titles and Grid
+    plt.title('Road Network')
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.grid(True)
+    plt.show()
 
 # EOF -----------------------------------------------------------

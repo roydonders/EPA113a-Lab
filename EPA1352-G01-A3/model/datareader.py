@@ -34,8 +34,8 @@ class DataReader:
         # Path to the data folder
         data_folder = os.path.join(parent_dir, 'data')
 
-        # Assuming the CSV file is named 'ass2_final_n1_network.csv'
-        csv_file_path = os.path.join(data_folder, 'ass2_final_n1_network.csv')
+        # Assuming the CSV file is named 'ass3_final_n1_network.csv'
+        csv_file_path = os.path.join(data_folder, 'demo-4.csv')
         return csv_file_path
 
     def get_roads(self):
@@ -43,7 +43,24 @@ class DataReader:
         csv_import = self.path
         # Read in dataframe
         df_import = pd.read_csv(csv_import)
-
+        print("Read in csv.")
         return df_import
 
+def get_path_from(filename):
+    # Get the directory of the current script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
 
+    # Get the parent directory
+    parent_dir = os.path.dirname(current_dir)
+
+    # Path to the data folder
+    data_folder = os.path.join(parent_dir, 'data')
+
+    # Assuming the file is named according to the string value in filename
+    csv_file_path = os.path.join(data_folder, filename)
+    return csv_file_path
+
+def read_df_from_excel(filename):
+    path = get_path_from(filename)
+    df_import = pd.read_excel(path)
+    return df_import

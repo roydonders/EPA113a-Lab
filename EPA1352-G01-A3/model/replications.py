@@ -14,7 +14,7 @@ class ReplicationCreator:
         self.scenario = scenario
 
     # method runs replications for the specified scenario.
-    def run_replications_assignment2(self):
+    def run_replications_assignment3(self):
 
         # creates replications for teh scenario passed
         replications = self.create_replications(self.scenario)  # Pass scenario and seeds here
@@ -36,7 +36,6 @@ class ReplicationCreator:
         return final_models, average_drive_time
 
     def calculate_average_drive_time(self, final_models):
-        return [100]
         average_drive_times = []
 
         for model in final_models:

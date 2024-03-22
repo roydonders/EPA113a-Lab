@@ -38,7 +38,7 @@ def run_assignment2():
 
     # # # base scenario_0 variables
     # scenario_0 = scenarios[0]
-    # output = run_scenario_assignment2(scenario_0)
+    # output = run_scenario_assignment3(scenario_0)
     # # print("output", outputs)
     # # eigenlijk for loop voor elk scenario, nu maar 1x ivm alleen scenario 0
 

@@ -57,15 +57,14 @@ class Bridge(Infra):
         self.condition = condition
         self.broken = broken
 
-        # TODO
         # assignment stub code: self.delay_time = self.random.randrange(0, 10)
         self.delay_time = 0
         # print(self.delay_time)
 
-    # TODO
     def get_delay_time(self):
         if self.broken:
             self.generate_delay()
+
         elif self.delay_time != 0:
             # Else (if not broken), self.delay should be 0 by default. If this is not the case, throw an error.
             raise ValueError("Delay for operational bridge not set properly")
@@ -75,13 +74,13 @@ class Bridge(Infra):
     def generate_delay(self):
         length = self.length
         if length > 200:
-            self.delay = self.random.triangular(60, 240, 120)
+            self.delay_time = self.random.triangular(60, 240, 120)
         elif 50 < length <= 200:
-            self.delay = self.random.uniform(45, 90)
+            self.delay_time = self.random.uniform(45, 90)
         elif 10 < length <= 50:
-            self.delay = self.random.uniform(15, 60)
+            self.delay_time = self.random.uniform(15, 60)
         elif length <= 10:
-            self.delay = self.random.uniform(10, 20)
+            self.delay_time = self.random.uniform(10, 20)
         else:
             raise ValueError("Invalid length provided")
 
@@ -112,6 +111,7 @@ class Sink(Infra):
 
     def remove(self, vehicle):
         self.model.schedule.remove(vehicle)
+        self.model.schedule.drivingtimes.append(vehicle.driving_time)
         self.vehicle_removed_toggle = not self.vehicle_removed_toggle
         print(str(self) + ' REMOVE ' + str(vehicle))
 
