@@ -129,7 +129,7 @@ class BangladeshModel(Model):
         # put back to df with selected roads so that min and max and be easily calculated
         df = pd.concat(df_objects_all)
 
-        # Changed: Generate nx model, call the graph G
+        # Changed: Generate nx model, call the graph G and store it as class variable
         self.G = generate_nx_model(df)
         print("Generated NX model")
         y_min, y_max, x_min, x_max = set_lat_lon_bound(
@@ -231,7 +231,7 @@ class BangladeshModel(Model):
             source: Source node.
             sink: Sink node.
         """
-        # Calculate the shortest path using Dijkstra's Algorithm
+        # Calculate the shortest path using Dijkstra's Algorithm and class variable G
         path = nx.dijkstra_path(self.G, source, sink)
         # store in path dictionary
         self.path_ids_dict[source, sink] = path
