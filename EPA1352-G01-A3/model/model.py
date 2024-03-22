@@ -368,7 +368,7 @@ def plot_network(G):
     # print(f"shortest path is {path}")
     # Plotting
     pos = nx.get_node_attributes(G, 'pos')
-    plt.figure(figsize=(80, 48))
+    plt.figure(figsize=(60, 38))
     # Draw nodes
     nx.draw(G, pos, with_labels=True, node_size=50, node_color='orange', font_size=5)
     labels = nx.get_edge_attributes(G, 'weight')
