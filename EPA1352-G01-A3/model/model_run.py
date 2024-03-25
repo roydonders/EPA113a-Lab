@@ -27,7 +27,7 @@ def run_assignment3():
     program.run_scenarios_assignment3()
 
 
-run_assignment3()
+# run_assignment3()
 
 
 # This function is the old code standard present in the assignment.
@@ -47,4 +47,4 @@ def one_run():
 
 
 # For debugging
-#one_run()
+one_run()
