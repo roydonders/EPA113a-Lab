@@ -196,9 +196,11 @@ class BangladeshModel(Model):
             if sink is not source:
                 break
         # Debugging prints
-        print(f"I come from {source} and will go to {sink}")
+        # print removed to reduce output time!
+        # print(f"I come from {source} and will go to {sink}")
         path = self.lookup_path(source, sink)
-        print(f"And thus I will travel path {path}")
+        # print removed to reduce output time!
+        # print(f"And thus I will travel path {path}")
         return path
 
     def get_route(self, source):

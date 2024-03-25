@@ -113,7 +113,8 @@ class Sink(Infra):
         self.model.schedule.remove(vehicle)
         self.model.schedule.drivingtimes.append(vehicle.driving_time)
         self.vehicle_removed_toggle = not self.vehicle_removed_toggle
-        print(str(self) + ' REMOVE ' + str(vehicle))
+        # print removed to reduce output time!
+        # print(str(self) + ' REMOVE ' + str(vehicle))
 
 
 # ---------------------------------------------------------------
@@ -160,7 +161,8 @@ class Source(Infra):
                 Source.truck_counter += 1
                 self.vehicle_count += 1
                 self.vehicle_generated_flag = True
-                print(str(self) + " GENERATE " + str(agent))
+                # print removed to reduce output time!
+                # print(str(self) + " GENERATE " + str(agent))
         except Exception as e:
             print("Oops!", e.__class__, "occurred.")
 
@@ -245,7 +247,7 @@ class Vehicle(Agent):
         self.driving_time = 0
 
     def __str__(self):
-        return "Vehicle" + str(self.unique_id) + \
+         return  "Vehicle" + str(self.unique_id) + \
                " +" + str(self.generated_at_step) + " -" + str(self.removed_at_step) + \
                " = (" + str(self.driving_time) + ")" + " " + str(self.state) + '(' + str(self.waiting_time) + ') ' + \
                str(self.location) + '(' + str(self.location.vehicle_count) + ') ' + str(self.location_offset)
@@ -278,7 +280,8 @@ class Vehicle(Agent):
         """
         To print the vehicle trajectory at each step
         """
-        print(self)
+        # print removed to reduce output time!
+        # print(self)
 
     def drive(self):
 
