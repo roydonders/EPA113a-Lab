@@ -11,41 +11,41 @@ Created by: EPA133a Group 01
 
 ## Introduction
 
-Thank you for using our model and program.
+Welcome to our model and program designed to analyze the criticality and vulnerability of roads and bridges in Bangladesh. 
+This project focuses on utilizing Jupyter Notebooks to identify the top 10 critical roads and bridges, 
+crucial for maintaining transportation connectivity and assessing potential risks.
 
-This assignment focuses on model generation and component building using Mesa, a Python3 agent-based simulation environment. Please note that this assignment builds upon previous work (the Demo model kindly provided to us & Assignment 2).
+### Purpose
 
-Our objective is to study the effects of bridge maintenance or unavailability on average travel times for a major road in Bangladesh.
+The primary objective of this project is to identify vulnerable or critical bridges, 
+particularly focusing on traffic flow along major roads and bridges in Bangladesh. 
+We aim to provide visual insights into how this is decided on for the major N-roads.
 
-Mesa's object-oriented approach simplifies the creation of user-defined models and libraries, allowing us to develop a demo model of goods transport over selected roads in Bangladesh. Bridges and ferries are crucial components of Bangladesh's transport system, often causing delays after natural disasters.
+### Methodology
 
-We aim to automatically generate a Mesa model to analyze the impact of bridge conditions on traffic along the N1 and N2 roads and several side roads (for more information, please see the detailed description of this in the attached report). Trucks' movement from ends of the roads will be simulated, measuring delays and travel times.
+We have developed a series of Jupyter Notebooks located in the "notebook" folder, each serving a distinct purpose in our analysis. These notebooks are crucial for our (data) modeling process and visualization of results. By running these notebooks, users can follow our step-by-step approach in identifying the top 10 critical roads and bridges and analyzing their vulnerability.
+The "model" folder is not used for this assignment.
 
-The assignment entails creating a "business as usual" model (Scenario 0) and introducing scenarios with varying probabilities of bridge breakdowns for different quality categories (A to D). Each scenario will be replicated 10 times to assess reliability.
+### Key Components
 
-Output files, named "scenario1.csv", "scenario2.csv", etc., will be placed in the "experiment" folder of the submission directory "EPA133a-G01-A2". We'll analyze the effects of each scenario on truck driving time and discuss the results in a report.
+- **mapstop10assignment4.ipynb**: This notebook is responsible for providing the maps with the top 10 bridges.
 
-If you are looking for information about the Demo model of Assignment 3, navigate to the [model/README.md](model/README.md) in the [model](model) directory.
+- **top10assignment4_vulnerability_matrix.ipynb**: It generates visual output files containing combined criticality and vulnerability metrics for roads and bridges.
 
-## How to Use
+- **Top 10 Roads RMMS data.ipynb**: Here, we conduct in-depth analysis of the data, identifying the top 10 critical and vulnerable roads on predefined criteria. 
 
-To access the experiment results, navigate to the "experiment" folder. Here, you'll find CSV files containing the output data for each scenario.
+- **assignment4.ipynb**: This file is responsible for cleaning the data, and providing a BMMS file with traffic flow data appended.
 
-If you wish to run the model and generate the experiment results yourself:
+### Usage Instructions
 
-1. Navigate to the "models" directory.
+To replicate our analysis or explore our methodology further, follow these steps:
 
-2. Run the `model_run.py` file using Python 3.11 or 3.12
+1. Navigate to the "notebook" folder in the project directory.
 
-This will execute the model with predefined seeds used in our experiments.
+2. Open the desired Jupyter Notebook using JupyterLab or any other compatible environment.
 
-3. The experiment results will be generated as CSV files using the specified seeds. Feel free to modify parameters such as seeds or runtime in the `model_run.py` file for your own experimentation.
+3. Execute the cells sequentially to run the code and generate results.
 
-### Main files
+4. Review the outputs, including maps, plots, and analysis summaries, to gain insights into the criticality and vulnerability of roads and bridges.
 
-The model_run.py creates 5 predefined scenarios and 10 replications per scenario using scenarios.py/replications.py (please see attached the report for additional information).
-
-datareader.py is used for reading data in, dataexporter.py is used for exporting data.
-
-For more details, please see the README in the models folder.
 
